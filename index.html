@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<title>Elegant Designs — Architecture & Construction</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',sans-serif;background:#fff;color:#111;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+
+:root{
+  --gold:#B8962E;--gold2:#D4AE4A;
+  --black:#111111;--off-black:#1A1A1A;
+  --white:#FFFFFF;--off-white:#F8F8F6;
+  --light:#F2F2F0;--mid:#888;--border:#E0E0DC;
+}
+
+/* ── IMAGE SLOTS ── */
+.img-slot{position:relative;width:100%;height:100%;background:#1A1A1A;overflow:hidden;display:block;}
+.img-slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,.61,.36,1);}
+.img-slot:hover img{transform:scale(1.05);}
+
+/* ── HEADER ── */
+header{position:fixed;top:0;left:0;right:0;z-index:500;transition:background .4s,box-shadow .4s;}
+header.solid{background:#fff;box-shadow:0 1px 0 var(--border);}
+nav{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:80px;}
+.nav-logo{display:flex;align-items:center;height:80px;padding:10px 0;flex-shrink:0;}
+.nav-logo img{height:100%;width:auto;max-width:340px;object-fit:contain;object-position:left center;display:block;}
+.nav-logo-fallback{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;letter-spacing:.02em;color:#fff;transition:color .3s;white-space:nowrap;}
+.nav-logo-fallback .dot{color:var(--gold);}
+header.solid .nav-logo-fallback{color:var(--black);}
+
+/* Mobile hamburger */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;z-index:600;}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:#fff;transition:all .3s;}
+header.solid .nav-hamburger span{background:var(--black);}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+.nav-mobile-drawer{position:fixed;top:0;left:0;right:0;bottom:0;background:var(--black);z-index:490;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.nav-mobile-drawer.open{opacity:1;pointer-events:all;}
+.nav-mobile-drawer a{font-family:'Libre Baskerville',serif;font-size:2rem;font-weight:400;color:rgba(255,255,255,.7);padding:1rem 2rem;letter-spacing:.01em;transition:color .2s;text-align:center;}
+.nav-mobile-drawer a:hover{color:var(--gold);}
+.nav-mobile-drawer .nav-mobile-contact{margin-top:2rem;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1.5px solid var(--gold);padding:.75rem 2rem;}
+
+.nav-center{display:flex;gap:0;list-style:none;}
+.nav-center a{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.8);padding:.5rem 1.1rem;transition:color .2s;white-space:nowrap;}
+.nav-center a:hover{color:var(--gold);}
+header.solid .nav-center a{color:var(--off-black);}
+header.solid .nav-center a:hover{color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:1.5rem;}
+.nav-contact{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid rgba(255,255,255,.6);color:#fff;padding:.5rem 1.4rem;transition:all .25s;white-space:nowrap;}
+.nav-contact:hover{background:#fff;color:var(--black);}
+header.solid .nav-contact{border-color:var(--black);color:var(--black);}
+header.solid .nav-contact:hover{background:var(--black);color:#fff;}
+
+/* ── HERO ── */
+.hero{position:relative;width:100%;height:100svh;min-height:580px;overflow:hidden;background:var(--black);}
+
+/* ── INTRO SLIDE ── */
+.intro-slide{position:absolute;inset:0;background:var(--black);z-index:100;opacity:1;transition:opacity 1.2s cubic-bezier(.4,0,.2,1);overflow:hidden;}
+.intro-slide.fade-out{opacity:0;pointer-events:none;}
+.intro-bg{position:absolute;inset:0;background:var(--black);}
+.intro-bg .img-slot{position:absolute;inset:0;}
+.intro-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,17,.92) 0%,rgba(17,17,17,.6) 50%,rgba(17,17,17,.7) 100%);z-index:1;}
+.intro-scanline{position:absolute;left:0;right:0;height:1px;background:linear-gradient(to right,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);opacity:0;z-index:4;top:0;animation:scanDown 1.8s cubic-bezier(.4,0,.2,1) .2s forwards;}
+@keyframes scanDown{0%{top:0%;opacity:0;}5%{opacity:.6;}95%{opacity:.3;}100%{top:100%;opacity:0;}}
+.intro-content{position:relative;z-index:5;height:100%;display:flex;flex-direction:column;justify-content:flex-end;}
+.intro-inner{max-width:1600px;margin:0 auto;width:100%;padding:0 2.5rem 5rem;}
+.intro-text{font-family:'Libre Baskerville',serif;font-size:clamp(2.6rem,9vw,7.5rem);font-weight:400;line-height:1.08;letter-spacing:-.03em;color:#fff;margin-bottom:1.4rem;display:block;}
+.intro-text em{font-style:italic;color:var(--gold);}
+.tw-line{display:block;position:relative;}
+.tw-underline{position:absolute;bottom:-4px;left:0;height:2px;background:var(--gold);width:0;}
+.tw-cursor{display:inline-block;width:3px;height:.82em;background:var(--gold);margin-left:3px;vertical-align:middle;position:relative;top:-.05em;animation:twBlink .65s step-end infinite;}
+@keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}
+.intro-tagline{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);opacity:0;transform:translateY(8px);display:flex;align-items:center;gap:.8rem;transition:opacity .6s ease,transform .6s ease;}
+.intro-tagline::before{content:'';width:28px;height:1.5px;background:var(--gold);}
+.intro-tagline.visible{opacity:1;transform:translateY(0);}
+.intro-skip{position:absolute;bottom:max(2rem,env(safe-area-inset-bottom,2rem));right:1.5rem;font-family:'Barlow',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);cursor:pointer;z-index:10;border:none;background:rgba(0,0,0,.3);display:flex;align-items:center;gap:.5rem;transition:color .2s;opacity:0;animation:twFadeIn .4s ease 1.8s forwards;padding:.6rem 1rem;min-height:44px;}
+.intro-skip::after{content:'→';}
+.intro-skip:hover{color:rgba(255,255,255,.8);}
+@keyframes twFadeIn{to{opacity:1;}}
+
+/* ── SLIDESHOW ── */
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1.2s ease;overflow:hidden;}
+.slide.active{opacity:1;z-index:1;}
+.slide .img-slot{position:absolute;inset:0;width:100%;height:100%;}
+.slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(17,17,17,.82) 0%,rgba(17,17,17,.22) 45%,transparent 72%),linear-gradient(to right,rgba(17,17,17,.45) 0%,transparent 55%);z-index:2;pointer-events:none;}
+.hero-overlay{position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;justify-content:flex-end;}
+.hero-inner{max-width:1600px;margin:0 auto;width:100%;padding:0 1.5rem 5rem;}
+.hero-captions{position:relative;min-height:200px;}
+.caption{position:absolute;bottom:0;left:0;opacity:0;transform:translateY(16px);transition:opacity .8s .3s,transform .8s .3s;pointer-events:none;width:100%;}
+.caption.active{opacity:1;transform:translateY(0);pointer-events:auto;}
+.caption-tag{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.8rem;}
+.caption-tag::before{content:'';width:28px;height:1.5px;background:var(--gold);}
+.caption-h{font-family:'Libre Baskerville',serif;font-size:clamp(2rem,7vw,6rem);font-weight:400;line-height:.95;letter-spacing:-.02em;color:#fff;margin-bottom:1rem;max-width:16ch;}
+.caption-h em{font-style:italic;color:var(--gold);}
+.caption-sub{font-family:'Barlow',sans-serif;font-size:.92rem;font-weight:300;color:rgba(255,255,255,.7);max-width:38ch;line-height:1.7;margin-bottom:1.5rem;display:none;}
+.caption-btn{font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:.6rem;color:#fff;border-bottom:1.5px solid var(--gold);padding-bottom:3px;min-height:44px;transition:color .2s,gap .2s;}
+.caption-btn::after{content:'→';font-size:.85rem;}
+.caption-btn:hover{color:var(--gold);gap:.9rem;}
+
+.hero-controls{position:absolute;right:1.5rem;bottom:5rem;z-index:10;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem;}
+.slide-count{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.12em;color:rgba(255,255,255,.5);}
+.slide-count span{color:#fff;font-size:.9rem;}
+.slide-dots{display:flex;gap:.5rem;}
+.dot-btn{width:32px;height:32px;background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;}
+.dot-btn::after{content:'';display:block;width:28px;height:2px;background:rgba(255,255,255,.3);transition:background .3s,width .3s;}
+.dot-btn.active::after{background:var(--gold);width:44px;}
+.nav-arrows{display:flex;gap:.5rem;}
+.arrow-btn{width:44px;height:44px;border:1.5px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .25s;-webkit-tap-highlight-color:transparent;}
+.arrow-btn:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+
+/* ── INTRO BAND ── */
+.intro-band{background:var(--black);padding:1.4rem 1.5rem;border-top:1px solid rgba(184,150,46,.3);}
+.intro-band-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;}
+.ib-claim{font-family:'Libre Baskerville',serif;font-size:1rem;font-style:italic;color:rgba(255,255,255,.75);max-width:52ch;flex:1;min-width:240px;}
+.ib-stats{display:flex;gap:2rem;flex-wrap:wrap;}
+.ib-stat-v{font-family:'Libre Baskerville',serif;font-size:1.5rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
+.ib-stat-l{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:.25rem;display:block;}
+
+/* ── SHARED ── */
+.section-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.7rem;}
+.section-title{font-family:'Libre Baskerville',serif;font-size:clamp(1.9rem,4vw,3.2rem);font-weight:400;line-height:1.05;letter-spacing:-.01em;color:var(--black);}
+.section-title em{font-style:italic;color:var(--gold);}
+.view-all{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--black);border-bottom:1.5px solid var(--black);padding-bottom:2px;transition:color .2s,border-color .2s;white-space:nowrap;align-self:flex-end;min-height:44px;display:inline-flex;align-items:flex-end;}
+.view-all:hover{color:var(--gold);border-color:var(--gold);}
+
+/* ── PROJECTS ── */
+.projects-section{background:#fff;}
+.projects-header{max-width:1600px;margin:0 auto;padding:5rem 1.5rem 3rem;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid var(--border);gap:1rem;}
+.proj-grid-primary{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:600px 440px;gap:2px;background:var(--border);}
+.proj-card{position:relative;overflow:hidden;background:var(--light);}
+.proj-card:nth-child(1){grid-column:1;grid-row:1;}
+.proj-card:nth-child(2){grid-column:2;grid-row:1;}
+.proj-card:nth-child(3){grid-column:1;grid-row:2;}
+.proj-card:nth-child(4){grid-column:2;grid-row:2;}
+.proj-card .img-slot{position:absolute;inset:0;}
+.proj-card:hover .img-slot img{transform:scale(1.05);}
+.proj-info{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:2rem;background:linear-gradient(to top,rgba(10,10,10,.92) 0%,rgba(10,10,10,.12) 50%,transparent 100%);transition:background .4s;z-index:5;}
+.proj-card:hover .proj-info{background:linear-gradient(to top,rgba(10,10,10,.97) 0%,rgba(10,10,10,.25) 55%,transparent 100%);}
+.proj-type{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;}
+.proj-name{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-weight:400;color:#fff;line-height:1.15;margin-bottom:.4rem;}
+.proj-card:nth-child(1) .proj-name,.proj-card:nth-child(2) .proj-name{font-size:clamp(1.4rem,2.5vw,2rem);}
+.proj-loc{font-family:'Barlow',sans-serif;font-size:.8rem;font-weight:300;color:rgba(255,255,255,.55);}
+.proj-arrow{position:absolute;top:1.5rem;right:1.5rem;width:auto;height:36px;padding:0 1rem;border:1.5px solid rgba(255,255,255,.45);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-family:'Barlow',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;gap:.4rem;opacity:0;transform:translateY(-6px);transition:all .3s;z-index:6;white-space:nowrap;}
+.proj-arrow::after{content:'↗';}
+.proj-card:hover .proj-arrow{opacity:1;transform:translateY(0);}
+.proj-grid-secondary{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-top:2px solid var(--border);}
+.proj-card-sm{position:relative;overflow:hidden;height:360px;background:var(--light);}
+.proj-card-sm .img-slot{position:absolute;inset:0;}
+.proj-card-sm:hover .img-slot img{transform:scale(1.05);}
+.proj-card-sm .proj-info{padding:2rem;}
+.proj-card-sm .proj-name{font-size:1.25rem;}
+
+/* ── STATEMENT ── */
+.statement-section{background:var(--black);padding:8rem 2.5rem;position:relative;overflow:hidden;}
+.statement-section::before{content:'DESIGN';font-family:'Libre Baskerville',serif;font-weight:700;font-size:clamp(18vw,28vw,28vw);color:rgba(255,255,255,.018);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;letter-spacing:-.04em;pointer-events:none;user-select:none;}
+.stmt-inner{max-width:1600px;margin:0 auto;position:relative;z-index:1;}
+.stmt-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:6rem;align-items:center;}
+.stmt-label{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:.7rem;}
+.stmt-label::before{content:'';width:24px;height:1.5px;background:var(--gold);}
+.stmt-h{font-family:'Libre Baskerville',serif;font-size:clamp(2.2rem,4.5vw,5rem);font-weight:400;line-height:1.02;letter-spacing:-.025em;color:#fff;}
+.stmt-h em{font-style:italic;color:var(--gold);}
+.stmt-body{font-family:'Barlow',sans-serif;font-size:1rem;font-weight:300;line-height:1.95;color:rgba(255,255,255,.62);margin-bottom:1.8rem;}
+.stmt-link{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;border-bottom:1.5px solid var(--gold);padding-bottom:3px;display:inline-block;transition:color .2s;}
+.stmt-link:hover{color:var(--gold);}
+
+/* ── PILLARS ── */
+.pillars{background:#fff;border-top:1px solid var(--border);}
+.pillars-inner{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);}
+.pillar{padding:4rem 3rem;border-right:1px solid var(--border);border-top:3px solid transparent;transition:background .3s,border-top-color .3s;}
+.pillar:last-child{border-right:none;}
+.pillar:hover{background:var(--off-white);border-top-color:var(--gold);}
+.pillar-num{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.18em;color:var(--gold);margin-bottom:1.8rem;display:block;}
+.pillar-title{font-family:'Libre Baskerville',serif;font-size:1.45rem;font-weight:400;color:var(--black);margin-bottom:1rem;line-height:1.2;}
+.pillar-body{font-family:'Barlow',sans-serif;font-size:.92rem;font-weight:300;line-height:1.9;color:#555;}
+
+/* ── INSIGHTS ── */
+.insights{background:var(--off-white);padding:6rem 1.5rem;}
+.insights-inner{max-width:1600px;margin:0 auto;}
+.insights-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);gap:1rem;}
+.insights-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5rem;}
+.insight-card{transition:transform .35s ease;}
+.insight-card:hover{transform:translateY(-4px);}
+.insight-img{width:100%;aspect-ratio:3/2;overflow:hidden;margin-bottom:1.4rem;background:var(--light);position:relative;}
+.insight-img .img-slot{position:absolute;inset:0;}
+.insight-cat{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.55rem;}
+.insight-title{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:400;line-height:1.42;color:var(--black);margin-bottom:.6rem;transition:color .2s;}
+.insight-card:hover .insight-title{color:var(--gold);}
+.insight-date{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:300;color:var(--mid);}
+
+/* ── METRICS ── */
+.metrics{background:var(--black);padding:5rem 1.5rem;position:relative;overflow:hidden;}
+.metrics::before{content:'NET ZERO';font-family:'Libre Baskerville',serif;font-weight:700;font-size:18vw;color:rgba(255,255,255,.018);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;letter-spacing:-.05em;pointer-events:none;user-select:none;}
+.metrics-inner{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);position:relative;z-index:1;}
+.metric{padding:2.5rem 2rem;border-right:1px solid rgba(255,255,255,.1);position:relative;transition:background .3s;}
+.metric:last-child{border-right:none;}
+.metric:hover{background:rgba(255,255,255,.03);}
+.metric::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.22,.61,.36,1);}
+.metric:hover::after{transform:scaleX(1);}
+.metric-val{font-family:'Libre Baskerville',serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:700;color:var(--gold);display:block;line-height:1;margin-bottom:.8rem;letter-spacing:-.02em;}
+.metric-lbl{font-family:'Barlow',sans-serif;font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.4rem;display:block;line-height:1.4;}
+.metric-sub{font-family:'Barlow',sans-serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.4);margin-top:.3rem;display:block;line-height:1.6;}
+
+/* ── SPOTLIGHT ── */
+.spotlight{background:#fff;}
+.spotlight-inner{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;min-height:620px;}
+.spot-img{position:relative;overflow:hidden;background:var(--black);}
+.spot-img .img-slot{position:absolute;inset:0;}
+.spot-label{position:absolute;top:1.5rem;left:1.5rem;background:var(--gold);color:var(--black);font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.4rem 1rem;z-index:10;}
+.spot-text{padding:4rem 3.5rem;display:flex;flex-direction:column;justify-content:center;background:var(--off-black);}
+.spot-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;}
+.spot-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--gold);}
+.spot-h{font-family:'Libre Baskerville',serif;font-size:clamp(1.8rem,3.5vw,3.4rem);font-weight:400;line-height:1.08;letter-spacing:-.015em;color:#fff;margin-bottom:1.5rem;}
+.spot-h em{font-style:italic;color:var(--gold);}
+.spot-specs{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:1.5rem 0;margin-bottom:1.5rem;}
+.spec-v{font-family:'Libre Baskerville',serif;font-size:1.7rem;font-weight:700;color:var(--gold);display:block;line-height:1;}
+.spec-k{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:300;color:rgba(255,255,255,.4);margin-top:.3rem;display:block;letter-spacing:.05em;}
+.spot-body{font-family:'Barlow',sans-serif;font-size:.9rem;font-weight:300;line-height:1.9;color:rgba(255,255,255,.55);max-width:40ch;margin-bottom:2rem;}
+.spot-btn{font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border-bottom:1.5px solid var(--gold);padding-bottom:3px;display:inline-flex;align-items:flex-end;min-height:44px;transition:color .2s;}
+.spot-btn:hover{color:#fff;border-color:#fff;}
+
+/* ── PROCESS ── */
+.process{background:var(--off-white);padding:7rem 1.5rem;}
+.process-inner{max-width:1600px;margin:0 auto;}
+.process-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:5rem;padding-bottom:2rem;border-bottom:1px solid var(--border);}
+.process-intro{font-family:'Barlow',sans-serif;font-size:.98rem;font-weight:300;line-height:1.95;color:#555;}
+.process-steps{display:grid;grid-template-columns:repeat(5,1fr);gap:2.5rem;position:relative;}
+.process-steps::before{content:'';position:absolute;top:2.5rem;left:2.5rem;right:2.5rem;height:1px;background:linear-gradient(to right,var(--gold) 0%,rgba(184,150,46,.15) 100%);z-index:0;}
+.step{position:relative;z-index:1;display:flex;flex-direction:column;}
+.step-num{width:50px;height:50px;border-radius:50%;background:var(--gold);color:var(--black);font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.1em;display:flex;align-items:center;justify-content:center;margin-bottom:1.8rem;box-shadow:0 0 0 7px var(--off-white),0 0 0 8px rgba(184,150,46,.2);transition:all .35s;flex-shrink:0;}
+.step:hover .step-num{background:var(--black);color:var(--gold);box-shadow:0 0 0 7px var(--off-white),0 0 0 9px var(--gold);}
+.step-title{font-family:'Libre Baskerville',serif;font-size:1.05rem;font-weight:400;color:var(--black);margin-bottom:1rem;line-height:1.3;}
+.step-body{font-family:'Barlow',sans-serif;font-size:.86rem;font-weight:300;line-height:1.9;color:#666;}
+
+/* ── CONTACT ── */
+.contact{background:var(--black);padding:7rem 1.5rem;}
+.contact-inner{max-width:1600px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:7rem;align-items:start;}
+.ct-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:.72rem;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.7rem;}
+.ct-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--gold);}
+.ct-h{font-family:'Libre Baskerville',serif;font-size:clamp(2.2rem,4.5vw,4.8rem);font-weight:400;line-height:1;letter-spacing:-.025em;color:#fff;margin-bottom:1.5rem;}
+.ct-h em{font-style:italic;color:var(--gold);}
+.ct-sub{font-family:'Barlow',sans-serif;font-size:.92rem;font-weight:300;line-height:1.9;color:rgba(255,255,255,.5);max-width:36ch;margin-bottom:2rem;}
+.ct-detail-item{padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08);display:flex;flex-direction:column;gap:.2rem;}
+.ct-detail-label{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);}
+.ct-detail-val{font-family:'Barlow',sans-serif;font-size:.9rem;font-weight:300;color:rgba(255,255,255,.65);}
+.form{display:flex;flex-direction:column;gap:1.2rem;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.fg{display:flex;flex-direction:column;gap:.4rem;}
+.fl{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.fi,.fsel,.fta{font-family:'Barlow',sans-serif;font-size:.9rem;font-weight:300;background:rgba(255,255,255,.04);border:none;border-bottom:1px solid rgba(255,255,255,.12);border-left:2px solid transparent;color:#fff;padding:.9rem 1rem;width:100%;outline:none;transition:border-color .25s,background .25s;appearance:none;min-height:44px;}
+.fi:focus,.fsel:focus,.fta:focus{border-bottom-color:var(--gold);border-left-color:var(--gold);background:rgba(255,255,255,.07);}
+.fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.18);}
+.fta{resize:vertical;min-height:110px;}
+.fsub{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--black);border:none;padding:1rem 2.5rem;cursor:pointer;align-self:flex-start;transition:all .3s;min-height:48px;}
+.fsub:hover{background:var(--gold2);transform:translateY(-2px);}
+
+/* ── AWARDS ── */
+.awards{background:var(--off-white);padding:2.5rem 1.5rem;border-top:1px solid var(--border);}
+.awards-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+.awards-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
+.awards-div{width:1px;height:22px;background:var(--border);}
+.awards-list{display:flex;flex-wrap:wrap;align-items:center;}
+.award-item{font-family:'Barlow',sans-serif;font-size:.85rem;font-weight:300;color:#666;padding:.3rem 1.5rem;position:relative;}
+.award-item::after{content:'·';position:absolute;right:0;top:50%;transform:translateY(-50%);color:var(--gold);font-size:1.2rem;}
+.award-item:last-child::after{display:none;}
+
+/* ── FOOTER ── */
+footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
+.footer-main{max-width:1600px;margin:0 auto;padding:4rem 1.5rem 2.5rem;display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;}
+.footer-brand{display:block;margin-bottom:1.2rem;}
+.footer-brand-fallback{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;color:#fff;display:block;}
+.footer-brand-fallback .dot{color:var(--gold);}
+.footer-tagline{font-family:'Barlow',sans-serif;font-size:.84rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.32);max-width:28ch;margin-bottom:1.8rem;}
+.footer-social{display:flex;gap:1.2rem;}
+.fsocial{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s;min-height:44px;display:inline-flex;align-items:center;}
+.fsocial:hover{color:var(--gold);}
+.fc-title{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1.2rem;display:block;}
+.fc ul{list-style:none;display:flex;flex-direction:column;gap:.6rem;}
+.fc a{font-family:'Barlow',sans-serif;font-size:.85rem;font-weight:300;color:rgba(255,255,255,.4);transition:color .2s;min-height:36px;display:inline-flex;align-items:center;}
+.fc a:hover{color:#fff;}
+.footer-bottom{max-width:1600px;margin:0 auto;padding:1.5rem 1.5rem 2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.fc-copy{font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:300;color:rgba(255,255,255,.18);}
+.fc-links{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.fc-links a{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:300;color:rgba(255,255,255,.18);transition:color .2s;}
+.fc-links a:hover{color:rgba(255,255,255,.55);}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
+.rv.in{opacity:1;transform:none;}
+.rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}.rv.d4{transition-delay:.4s;}
+
+/* ══════════════════════════════
+   ADMIN IMAGE MANAGER
+   Hidden — unlock via ?admin or press A+D+M
+══════════════════════════════ */
+#admin-lock{
+  position:fixed;inset:0;z-index:9000;
+  background:rgba(0,0,0,.96);backdrop-filter:blur(12px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#admin-lock.open{opacity:1;pointer-events:all;}
+#admin-lock-box{
+  background:#111;border:1px solid rgba(184,150,46,.3);
+  padding:2.5rem;width:100%;max-width:380px;text-align:center;
+}
+#admin-lock-box h2{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-weight:400;color:#fff;margin-bottom:.4rem;}
+#admin-lock-box h2 em{font-style:italic;color:var(--gold);}
+#admin-lock-box p{font-family:'Barlow',sans-serif;font-size:.8rem;color:rgba(255,255,255,.35);margin-bottom:1.5rem;letter-spacing:.05em;}
+#admin-pw-input{
+  width:100%;background:rgba(255,255,255,.05);border:none;
+  border-bottom:1.5px solid rgba(255,255,255,.2);color:#fff;
+  font-family:'Barlow',sans-serif;font-size:1.1rem;letter-spacing:.25em;
+  padding:.8rem 1rem;text-align:center;outline:none;margin-bottom:1rem;
+  transition:border-color .2s;
+}
+#admin-pw-input:focus{border-bottom-color:var(--gold);}
+#admin-pw-input.shake{animation:shake .4s ease;}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+#admin-pw-btn{
+  width:100%;font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--black);
+  border:none;padding:1rem;cursor:pointer;transition:background .2s;min-height:48px;
+}
+#admin-pw-btn:hover{background:var(--gold2);}
+#admin-pw-err{font-family:'Barlow',sans-serif;font-size:.75rem;color:#e05555;margin-top:.7rem;min-height:1.2rem;}
+#admin-pw-cancel{
+  margin-top:.8rem;font-family:'Barlow',sans-serif;font-size:.72rem;
+  color:rgba(255,255,255,.2);background:none;border:none;cursor:pointer;
+  transition:color .2s;width:100%;padding:.4rem;
+}
+#admin-pw-cancel:hover{color:rgba(255,255,255,.5);}
+
+/* Admin panel (shown after auth) */
+#img-mgr-panel{
+  position:fixed;inset:0;z-index:8000;
+  background:rgba(0,0,0,.88);backdrop-filter:blur(8px);
+  display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+#img-mgr-panel.open{display:block;}
+#img-mgr-inner{max-width:960px;margin:2rem auto;background:#fff;overflow:hidden;}
+#img-mgr-header{background:var(--black);padding:1.5rem;display:flex;align-items:center;justify-content:space-between;}
+#img-mgr-header h2{font-family:'Libre Baskerville',serif;font-size:1.2rem;font-weight:400;color:#fff;}
+#img-mgr-header h2 em{font-style:italic;color:var(--gold);}
+.mgr-admin-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;background:var(--gold);color:var(--black);padding:.25rem .7rem;margin-left:.8rem;vertical-align:middle;}
+#img-mgr-close{background:none;border:1.5px solid rgba(255,255,255,.4);color:#fff;width:44px;height:44px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
+#img-mgr-close:hover{border-color:#fff;background:rgba(255,255,255,.1);}
+.mgr-notice{background:#FDF6E3;border-bottom:1px solid #E8D9A0;padding:1rem 1.5rem;font-family:'Barlow',sans-serif;font-size:.82rem;line-height:1.6;color:#6B5800;}
+.mgr-notice strong{color:#4A3D00;}
+#img-mgr-slots{padding:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.mgr-slot{border:1.5px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .25s;position:relative;}
+.mgr-slot:hover{border-color:var(--gold);}
+.mgr-slot-preview{width:100%;aspect-ratio:16/9;background:#F2F2F0;position:relative;overflow:hidden;}
+.mgr-slot-preview img{width:100%;height:100%;object-fit:cover;}
+.mgr-slot-preview .mgr-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:repeating-linear-gradient(45deg,rgba(184,150,46,.06),rgba(184,150,46,.06) 1px,transparent 1px,transparent 22px);}
+.mgr-placeholder-icon{font-size:2rem;opacity:.3;}
+.mgr-placeholder-text{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:#888;}
+.mgr-slot-info{padding:.8rem 1rem;background:#fff;border-top:1px solid var(--border);}
+.mgr-slot-name{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--black);margin-bottom:.2rem;}
+.mgr-slot-desc{font-family:'Barlow',sans-serif;font-size:.72rem;color:#888;}
+.mgr-upload-overlay{position:absolute;inset:0;background:rgba(184,150,46,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:5;}
+.mgr-slot:hover .mgr-upload-overlay{opacity:1;}
+.mgr-upload-overlay span{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--black);}
+.mgr-status{font-family:'Barlow',sans-serif;font-size:.75rem;color:var(--mid);padding:.5rem 1rem;background:#f9f9f7;border-top:1px solid var(--border);min-height:1.8rem;}
+.mgr-status.ok{color:#2D6A2D;background:#F0FFF0;}
+.mgr-status.err{color:#8B0000;background:#FFF0F0;}
+.mgr-status.busy{color:var(--gold);}
+#img-mgr-footer{padding:1.2rem 1.5rem;background:var(--off-white);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+.mgr-footer-note{font-family:'Barlow',sans-serif;font-size:.78rem;color:#888;}
+#mgr-export-btn,#mgr-clear-btn{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.7rem 1.2rem;cursor:pointer;border:none;transition:all .25s;min-height:44px;}
+#mgr-export-btn{background:var(--black);color:#fff;}
+#mgr-export-btn:hover{background:var(--gold);color:var(--black);}
+#mgr-clear-btn{background:transparent;color:#888;border:1px solid var(--border);}
+#mgr-clear-btn:hover{border-color:#c00;color:#c00;}
+.mgr-progress{height:3px;background:var(--border);}
+.mgr-progress-bar{height:100%;background:var(--gold);width:0;transition:width .3s;}
+.mgr-slot-logo{grid-column:1 / -1;}
+.mgr-logo-preview{display:grid;grid-template-columns:1fr 1fr;height:110px;position:relative;overflow:hidden;cursor:pointer;}
+.mgr-logo-dark,.mgr-logo-light{display:flex;align-items:center;justify-content:center;padding:1.5rem 2rem;position:relative;}
+.mgr-logo-dark{background:#111;}
+.mgr-logo-light{background:#F8F8F6;border-left:1px solid var(--border);}
+.mgr-logo-dark img,.mgr-logo-light img{max-height:48px;max-width:100%;width:auto;height:auto;object-fit:contain;}
+.mgr-logo-dark img{filter:brightness(0) invert(1);}
+.mgr-logo-hint{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;position:absolute;bottom:.7rem;left:0;right:0;text-align:center;}
+.mgr-logo-dark .mgr-logo-hint{color:rgba(255,255,255,.25);}
+.mgr-logo-light .mgr-logo-hint{color:rgba(0,0,0,.25);}
+.mgr-slot-logo .mgr-upload-overlay{position:absolute;inset:0;z-index:5;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){
+  .proj-grid-primary{grid-template-rows:540px 400px;}
+  .footer-main{grid-template-columns:2fr 1fr 1fr;gap:2rem;}
+  .footer-main > div:last-child{grid-column:1 / -1;}
+}
+@media(max-width:1024px){
+  .proj-grid-primary{grid-template-columns:1fr;grid-template-rows:auto;}
+  .proj-card:nth-child(n){grid-column:auto;grid-row:auto;height:480px;}
+  .proj-grid-secondary{grid-template-columns:1fr 1fr;}
+  .proj-card-sm{height:320px;}
+  .stmt-grid{grid-template-columns:1fr;gap:3rem;}
+  .pillars-inner{grid-template-columns:1fr 1fr;}
+  .pillar:nth-child(2){border-right:none;}
+  .pillar:nth-child(3){border-right:none;border-top:1px solid var(--border);grid-column:1 / -1;}
+  .metrics-inner{grid-template-columns:1fr 1fr;}
+  .metric{border-right:none;border-bottom:1px solid rgba(255,255,255,.12);}
+  .metric:nth-child(odd){border-right:1px solid rgba(255,255,255,.1);}
+  .metric:nth-child(3),.metric:nth-child(4){border-bottom:none;}
+  .spotlight-inner{grid-template-columns:1fr;}
+  .spot-img{min-height:45vw;}
+  .process-steps{grid-template-columns:1fr 1fr;gap:2.5rem 2rem;}
+  .process-steps::before{display:none;}
+  .contact-inner{grid-template-columns:1fr;gap:3.5rem;}
+  .footer-main{grid-template-columns:1fr 1fr;gap:2rem;}
+  #img-mgr-slots{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  nav{padding:0 1.25rem;height:64px;}
+  .nav-logo{height:64px;padding:8px 0;}
+  .nav-center,.nav-right .nav-contact{display:none;}
+  .nav-hamburger{display:flex;}
+  .hero{height:100svh;}
+  .hero-inner{padding:0 1.25rem 4.5rem;}
+  .hero-captions{min-height:180px;}
+  .caption-sub{display:none;}
+  .hero-controls{right:1.25rem;bottom:4.5rem;gap:.6rem;}
+  .intro-inner{padding:0 1.25rem 4rem;}
+  .intro-band-inner{flex-direction:column;align-items:flex-start;gap:1.2rem;}
+  .projects-header{padding:3.5rem 1.25rem 2rem;flex-wrap:wrap;}
+  .proj-grid-primary{grid-template-columns:1fr;}
+  .proj-card:nth-child(n){height:300px;}
+  .proj-card:nth-child(1) .proj-name,.proj-card:nth-child(2) .proj-name{font-size:1.5rem;}
+  .proj-grid-secondary{grid-template-columns:1fr;}
+  .proj-card-sm{height:260px;}
+  .proj-info,.proj-card-sm .proj-info{padding:1.5rem;}
+  .statement-section{padding:5rem 1.25rem;}
+  .statement-section::before{display:none;}
+  .pillars-inner{grid-template-columns:1fr;}
+  .pillar{padding:2.8rem 1.5rem;border-right:none;border-bottom:1px solid var(--border);border-top:3px solid transparent;}
+  .pillar:last-child{border-bottom:none;}
+  .insights{padding:4rem 1.25rem;}
+  .insights-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .insight-card:hover{transform:none;}
+  .metrics{padding:0;}
+  .metrics::before{display:none;}
+  .metrics-inner{grid-template-columns:1fr 1fr;}
+  .metric{padding:2rem 1.25rem;border-right:none;border-bottom:1px solid rgba(255,255,255,.1);}
+  .metric:nth-child(odd){border-right:1px solid rgba(255,255,255,.08);}
+  .metric:nth-child(3),.metric:nth-child(4){border-bottom:none;}
+  .spotlight-inner{grid-template-columns:1fr;}
+  .spot-img{height:60vw;min-height:240px;}
+  .spot-text{padding:2.5rem 1.5rem;}
+  .process{padding:4rem 1.25rem;}
+  .process-header{grid-template-columns:1fr;gap:1.5rem;margin-bottom:3rem;}
+  .process-steps{grid-template-columns:1fr;gap:2rem;}
+  .process-steps::before{display:none;}
+  .step{flex-direction:row;gap:1.2rem;align-items:flex-start;}
+  .step-num{margin-bottom:0;width:44px;height:44px;font-size:.72rem;}
+  .contact{padding:4rem 1.25rem;}
+  .contact-inner{gap:2.5rem;}
+  .form-row{grid-template-columns:1fr;}
+  .awards{padding:2rem 1.25rem;}
+  .awards-div{display:none;}
+  .award-item{font-size:.8rem;}
+  .footer-main{padding:3rem 1.25rem 2rem;grid-template-columns:1fr 1fr;gap:2rem 1.5rem;}
+  .footer-main > div:first-child{grid-column:1 / -1;}
+  .footer-bottom{padding:1.2rem 1.25rem 2rem;flex-direction:column;align-items:flex-start;}
+  #admin-lock-box{margin:1rem;padding:2rem 1.5rem;}
+  #img-mgr-inner{margin:0;min-height:100vh;}
+  #img-mgr-footer{flex-direction:column;align-items:stretch;}
+  #mgr-export-btn,#mgr-clear-btn{width:100%;justify-content:center;display:flex;}
+}
+@media(max-width:480px){
+  .proj-card:nth-child(n){height:260px;}
+  .proj-card-sm{height:220px;}
+  .metrics-inner{grid-template-columns:1fr;}
+  .metric{border-right:none;border-bottom:1px solid rgba(255,255,255,.1);}
+  .metric:last-child{border-bottom:none;}
+  .metric:nth-child(odd){border-right:none;}
+  .footer-main{grid-template-columns:1fr;}
+  .footer-main > div:first-child{grid-column:auto;}
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-fallback">Elegant<span class="dot">.</span>Designs</span>
+    </a>
+    <ul class="nav-center">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#approach">Approach</a></li>
+      <li><a href="#insights">Insights</a></li>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#contact">Careers</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="#contact" class="nav-contact">Contact Us</a>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+</header>
+
+<div class="nav-mobile-drawer" id="nav-drawer">
+  <a href="#projects" class="nav-drawer-link">Projects</a>
+  <a href="#approach" class="nav-drawer-link">Approach</a>
+  <a href="#insights" class="nav-drawer-link">Insights</a>
+  <a href="#studio" class="nav-drawer-link">Studio</a>
+  <a href="#contact" class="nav-drawer-link">Careers</a>
+  <a href="#contact" class="nav-mobile-contact nav-drawer-link">Contact Us</a>
+</div>
+
+<section class="hero" id="hero">
+  <div class="intro-slide" id="intro-slide">
+    <div class="intro-bg">
+      <div class="img-slot">
+        <img src="images/intro-bg.jpg" alt="Elegant Designs">
+      </div>
+    </div>
+    <div class="intro-scanline"></div>
+    <div class="intro-content">
+      <div class="intro-inner">
+        <div class="intro-text" id="intro-text"></div>
+        <div class="intro-tagline" id="intro-tagline">Est. Dar es Salaam — 2019</div>
+      </div>
+    </div>
+    <button class="intro-skip" id="intro-skip">Skip intro</button>
+  </div>
+
+  <div class="slide active">
+    <div class="img-slot"><img src="images/hero-0.jpg" alt="Elegant Designs — Project 1"></div>
+  </div>
+  <div class="slide">
+    <div class="img-slot"><img src="images/hero-1.jpg" alt="Elegant Designs — Project 2"></div>
+  </div>
+  <div class="slide">
+    <div class="img-slot"><img src="images/hero-2.jpg" alt="Elegant Designs — Project 3"></div>
+  </div>
+
+  <div class="hero-overlay">
+    <div class="hero-inner">
+      <div class="hero-captions">
+        <div class="caption active">
+          <div class="caption-tag">Ecological Architecture · Dar es Salaam</div>
+          <h1 class="caption-h">The Meridian<br>Tower, <em>2025</em></h1>
+          <p class="caption-sub">320 metres. 85 floors. Net zero. A new landmark for East Africa's skyline.</p>
+          <a href="#projects" class="caption-btn">View project</a>
+        </div>
+        <div class="caption">
+          <div class="caption-tag">Commercial Campus · Nairobi</div>
+          <h1 class="caption-h">Savanna Office<br><em>Park, 2022</em></h1>
+          <p class="caption-sub">Six towers. Six sky bridges. 12 hectares of net-zero commercial space.</p>
+          <a href="#projects" class="caption-btn">View project</a>
+        </div>
+        <div class="caption">
+          <div class="caption-tag">Masterplan · Lagos</div>
+          <h1 class="caption-h">Green Quarter<br><em>Lagos</em></h1>
+          <p class="caption-sub">80 hectares. 12 buildings. West Africa's most ambitious ecological masterplan.</p>
+          <a href="#projects" class="caption-btn">View project</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-controls">
+    <div class="slide-count"><span id="slide-current">01</span> / 03</div>
+    <div class="slide-dots">
+      <button class="dot-btn active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="dot-btn" data-slide="1" aria-label="Slide 2"></button>
+      <button class="dot-btn" data-slide="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="nav-arrows">
+      <button class="arrow-btn" id="prev-btn" aria-label="Previous">←</button>
+      <button class="arrow-btn" id="next-btn" aria-label="Next">→</button>
+    </div>
+  </div>
+</section>
+
+<div class="intro-band">
+  <div class="intro-band-inner">
+    <p class="ib-claim">"We design buildings of breathtaking ambition that give more to their environment than they take from it."</p>
+    <div class="ib-stats">
+      <div><span class="ib-stat-v">38</span><span class="ib-stat-l">Projects</span></div>
+      <div><span class="ib-stat-v">4</span><span class="ib-stat-l">Countries</span></div>
+      <div><span class="ib-stat-v">Net 0</span><span class="ib-stat-l">Carbon target</span></div>
+      <div><span class="ib-stat-v">2019</span><span class="ib-stat-l">Est. Dar es Salaam</span></div>
+    </div>
+  </div>
+</div>
+
+<section class="projects-section" id="projects">
+  <div class="projects-header">
+    <div class="rv">
+      <div class="section-eyebrow">Featured Projects</div>
+      <h2 class="section-title">Buildings that<br>define <em>skylines.</em></h2>
+    </div>
+    <a href="#" class="view-all rv">View All Projects</a>
+  </div>
+  <div class="proj-grid-primary">
+    <div class="proj-card">
+      <div class="img-slot"><img src="images/proj-1.jpg" alt="The Meridian Tower"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Mixed-Use · Dar es Salaam</div><div class="proj-name">The Meridian Tower</div><div class="proj-loc">85 Floors · 320m · LEED Platinum · 2025</div></div>
+    </div>
+    <div class="proj-card">
+      <div class="img-slot"><img src="images/proj-2.jpg" alt="Savanna Office Park"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Commercial Campus · Nairobi</div><div class="proj-name">Savanna Office Park</div><div class="proj-loc">12 Hectares · 100% Renewable · 2022</div></div>
+    </div>
+    <div class="proj-card">
+      <div class="img-slot"><img src="images/proj-3.jpg" alt="Aso Cultural Dome"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Cultural Hub · Lagos</div><div class="proj-name">Aso Cultural Dome</div><div class="proj-loc">Parametric Shell · Rammed Earth · 2024</div></div>
+    </div>
+    <div class="proj-card">
+      <div class="img-slot"><img src="images/proj-4.jpg" alt="Green Quarter Lagos"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Masterplan · Lagos</div><div class="proj-name">Green Quarter Lagos</div><div class="proj-loc">80 Hectares · 12 Buildings · 2026</div></div>
+    </div>
+  </div>
+  <div class="proj-grid-secondary">
+    <div class="proj-card-sm">
+      <div class="img-slot"><img src="images/proj-5.jpg" alt="Canopy Stack"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Residential · Nairobi</div><div class="proj-name">Canopy Stack</div><div class="proj-loc">Modular · Living Terraces · 2023</div></div>
+    </div>
+    <div class="proj-card-sm">
+      <div class="img-slot"><img src="images/proj-6.jpg" alt="Volta Arts Centre"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Cultural · Accra</div><div class="proj-name">Volta Arts Centre</div><div class="proj-loc">Solar Louvers · Bioclimatic · 2023</div></div>
+    </div>
+    <div class="proj-card-sm">
+      <div class="img-slot"><img src="images/proj-7.jpg" alt="Bahari Tower"></div>
+      <div class="proj-arrow"></div>
+      <div class="proj-info"><div class="proj-type">Residential · Dar es Salaam</div><div class="proj-name">Bahari Tower</div><div class="proj-loc">Vertical Garden · Geothermal · 2023</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="statement-section" id="approach">
+  <div class="stmt-inner">
+    <div class="stmt-grid rv">
+      <div>
+        <div class="stmt-label">Our Approach</div>
+        <h2 class="stmt-h">Architecture<br>as a force<br>for <em>good.</em></h2>
+      </div>
+      <div>
+        <p class="stmt-body">We are Elegant Designs — a Dar es Salaam practice that refuses to treat sustainability as a constraint. For us, it is the creative brief. Every building we produce demonstrates that ecological architecture can be more ambitious, more beautiful, and more enduring than anything that came before it.</p>
+        <p class="stmt-body">Our 24-person team of architects, engineers, and ecologists takes on 6 to 8 projects per year. We work across East and West Africa because this is where the world's most consequential design decisions are being made right now.</p>
+        <a href="#contact" class="stmt-link">Learn more about us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="pillars">
+  <div class="pillars-inner">
+    <div class="pillar rv"><span class="pillar-num">01</span><h3 class="pillar-title">Climate-First Design</h3><p class="pillar-body">Before a line is drawn, we study the land. Solar path, wind, rainfall, soil — the site is our first design partner. Every building responds to its ecosystem rather than imposing upon it.</p></div>
+    <div class="pillar rv d1"><span class="pillar-num">02</span><h3 class="pillar-title">Buildings That Live</h3><p class="pillar-body">Rooftop gardens, living walls, biodiversity corridors — our structures are ecosystems. An Elegant Designs building actively increases habitat and sequesters carbon over its lifetime.</p></div>
+    <div class="pillar rv d2"><span class="pillar-num">03</span><h3 class="pillar-title">Honest Materials</h3><p class="pillar-body">Rammed earth. Reclaimed steel. Cross-laminated timber. We specify what we mean. Honest materials carry lower embodied carbon — and far more inherent beauty.</p></div>
+  </div>
+</div>
+
+<section class="insights" id="insights">
+  <div class="insights-inner">
+    <div class="insights-header rv">
+      <div><div class="section-eyebrow">Insights & Ideas</div><h2 class="section-title">Thinking about<br>the <em>future.</em></h2></div>
+      <a href="#" class="view-all">View All</a>
+    </div>
+    <div class="insights-grid">
+      <div class="insight-card rv">
+        <div class="insight-img"><div class="img-slot"><img src="images/insight-1.jpg" alt="Insight 1"></div></div>
+        <div class="insight-cat">Sustainability</div>
+        <div class="insight-title">Why Africa's Next Cities Must Be Built Ecologically From the Ground Up</div>
+        <div class="insight-date">April 2025</div>
+      </div>
+      <div class="insight-card rv d1">
+        <div class="insight-img"><div class="img-slot"><img src="images/insight-2.jpg" alt="Insight 2"></div></div>
+        <div class="insight-cat">Research</div>
+        <div class="insight-title">Passive Cooling in Tropical Climates: How We Eliminated Air Conditioning From Our Last Three Projects</div>
+        <div class="insight-date">January 2025</div>
+      </div>
+      <div class="insight-card rv d2">
+        <div class="insight-img"><div class="img-slot"><img src="images/insight-3.jpg" alt="Insight 3"></div></div>
+        <div class="insight-cat">Design</div>
+        <div class="insight-title">The Living Facade: How We Integrate 18,000m² of Vertical Garden Across Our Portfolio</div>
+        <div class="insight-date">October 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="metrics">
+  <div class="metrics-inner">
+    <div class="metric rv"><span class="metric-val"><span class="cnt" data-t="62">0</span>%</span><span class="metric-lbl">Average energy reduction</span><span class="metric-sub">vs. conventional construction</span></div>
+    <div class="metric rv d1"><span class="metric-val"><span class="cnt" data-t="38">0</span></span><span class="metric-lbl">Projects completed</span><span class="metric-sub">East & West Africa since 2019</span></div>
+    <div class="metric rv d2"><span class="metric-val"><span class="cnt" data-t="91">0</span>%</span><span class="metric-lbl">Local material sourcing</span><span class="metric-sub">Shorter chains, stronger communities</span></div>
+    <div class="metric rv d3"><span class="metric-val">Net 0</span><span class="metric-lbl">Carbon on every project</span><span class="metric-sub">Our baseline, not our ceiling</span></div>
+  </div>
+</section>
+
+<section class="spotlight" id="studio">
+  <div class="spotlight-inner">
+    <div class="spot-img">
+      <div class="img-slot"><img src="images/spot.jpg" alt="Elegant Designs Studio"></div>
+      <div class="spot-label">Studio Spotlight</div>
+    </div>
+    <div class="spot-text">
+      <div class="spot-eyebrow">The Studio</div>
+      <h2 class="spot-h">24 people.<br><em>One standard.</em><br>Net zero, always.</h2>
+      <div class="spot-specs">
+        <div><span class="spec-v">2019</span><span class="spec-k">Founded, Dar es Salaam</span></div>
+        <div><span class="spec-v">24</span><span class="spec-k">Professionals</span></div>
+        <div><span class="spec-v">6–8</span><span class="spec-k">Projects per year</span></div>
+        <div><span class="spec-v">4</span><span class="spec-k">Countries active</span></div>
+      </div>
+      <p class="spot-body">We stay small so we stay exceptional. Elegant Designs was founded in 2019 — not to become another architecture firm, but to prove that buildings don't have to choose between ambition and accountability.</p>
+      <a href="#contact" class="spot-btn">Work with us →</a>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div class="process-inner">
+    <div class="process-header rv">
+      <div><div class="section-eyebrow">How We Work</div><h2 class="section-title">Five stages.<br><em>Zero shortcuts.</em></h2></div>
+      <p class="process-intro">Every project follows the same rigorous sequence — from the first site walk to the final planting. We stay on every project, every step. The ecological intent of the design survives contact with reality because we make sure it does.</p>
+    </div>
+    <div class="process-steps">
+      <div class="step rv"><span class="step-num">01</span><div class="step-content"><h3 class="step-title">Site & Climate Analysis</h3><p class="step-body">We read the land before drawing anything. Solar path, wind, rainfall, soil composition — the site tells us what's possible and responsible.</p></div></div>
+      <div class="step rv d1"><span class="step-num">02</span><div class="step-content"><h3 class="step-title">Concept & Carbon Modelling</h3><p class="step-body">Every sketch is tested against a carbon budget from day one. Net zero is the constraint, not an afterthought at planning sign-off.</p></div></div>
+      <div class="step rv d2"><span class="step-num">03</span><div class="step-content"><h3 class="step-title">Material Specification</h3><p class="step-body">Local, reclaimed, honest. We refuse any material whose extraction harms more than its use saves. Supply chains transparent by design.</p></div></div>
+      <div class="step rv d3"><span class="step-num">04</span><div class="step-content"><h3 class="step-title">Construction</h3><p class="step-body">We stay on site. Our architects build alongside teams, ensuring the ecological intent of the design survives contact with the real world.</p></div></div>
+      <div class="step rv d4"><span class="step-num">05</span><div class="step-content"><h3 class="step-title">Post-Occupancy Care</h3><p class="step-body">Reviews at 6 months and 2 years. Energy monitoring, performance tracking, and an ongoing relationship with every building we make.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="awards">
+  <div class="awards-inner">
+    <div class="awards-label">Recognition</div>
+    <div class="awards-div"></div>
+    <div class="awards-list">
+      <span class="award-item">AIA Small Firm Award 2024</span>
+      <span class="award-item">African Architecture Prize — Finalist</span>
+      <span class="award-item">LEED Project of the Year 2023</span>
+      <span class="award-item">Dezeen Sustainable Design Longlist</span>
+      <span class="award-item">UN-Habitat Innovation Award</span>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="ct-eyebrow rv">Start a Project</div>
+      <h2 class="ct-h rv">Let's build<br>something<br><em>that lasts.</em></h2>
+      <p class="ct-sub rv d1">We take on 6–8 projects per year, chosen with care. If you have a site, a brief, or an idea that won't leave you alone — we want to hear it.</p>
+      <div class="rv d2">
+        <div class="ct-detail-item"><span class="ct-detail-label">Email</span><span class="ct-detail-val">hello@elegantdesigns.com</span></div>
+        <div class="ct-detail-item"><span class="ct-detail-label">Phone</span><span class="ct-detail-val">+255 000 000 000</span></div>
+        <div class="ct-detail-item"><span class="ct-detail-label">Address</span><span class="ct-detail-val">Dar es Salaam, Tanzania</span></div>
+        <div class="ct-detail-item"><span class="ct-detail-label">Offices</span><span class="ct-detail-val">Nairobi · Lagos · Accra</span></div>
+      </div>
+    </div>
+    <form class="form rv d1" onsubmit="handleForm(event)">
+      <div class="form-row">
+        <div class="fg"><label class="fl">First Name</label><input class="fi" type="text" placeholder="Amara"></div>
+        <div class="fg"><label class="fl">Last Name</label><input class="fi" type="text" placeholder="Osei"></div>
+      </div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="amara@company.com"></div>
+      <div class="fg"><label class="fl">Project Type</label>
+        <select class="fsel">
+          <option value="">Select a type</option>
+          <option>High-rise / Tower</option>
+          <option>Commercial Campus</option>
+          <option>Residential</option>
+          <option>Cultural / Public</option>
+          <option>Masterplanning</option>
+          <option>Sustainability Advisory</option>
+        </select>
+      </div>
+      <div class="fg"><label class="fl">Location</label><input class="fi" type="text" placeholder="City, Country"></div>
+      <div class="fg"><label class="fl">About Your Project</label><textarea class="fta" placeholder="What are you building — and why does it matter?"></textarea></div>
+      <button class="fsub" type="submit">Submit Enquiry</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-main">
+    <div>
+      <span class="footer-brand"><span class="footer-brand-fallback">Elegant<span class="dot">.</span>Designs</span></span>
+      <p class="footer-tagline">Ecological architecture and construction for Africa's future cities. Est. Dar es Salaam, 2019.</p>
+      <div class="footer-social">
+        <a href="#" class="fsocial">Instagram</a>
+        <a href="#" class="fsocial">LinkedIn</a>
+        <a href="#" class="fsocial">Dezeen</a>
+      </div>
+    </div>
+    <div class="fc"><span class="fc-title">Practice</span><ul><li><a href="#projects">Projects</a></li><li><a href="#approach">Approach</a></li><li><a href="#insights">Insights</a></li><li><a href="#studio">Studio</a></li><li><a href="#">Careers</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Expertise</span><ul><li><a href="#">Architecture</a></li><li><a href="#">Construction</a></li><li><a href="#">Masterplanning</a></li><li><a href="#">Urban Design</a></li><li><a href="#">Sustainability</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Offices</span><ul><li><a href="#">Dar es Salaam</a></li><li><a href="#">Nairobi</a></li><li><a href="#">Lagos</a></li><li><a href="#">Accra</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="fc-copy">© 2025 Elegant Designs. All Rights Reserved.</span>
+    <div class="fc-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">LEED AP · BREEAM · EDGE Certified</a></div>
+  </div>
+</footer>
+
+<!-- ══ ADMIN: Password lock screen (invisible to regular visitors) ══ -->
+<div id="admin-lock">
+  <div id="admin-lock-box">
+    <h2>Admin <em>Access</em></h2>
+    <p>Enter password to manage site images</p>
+    <input type="password" id="admin-pw-input" placeholder="••••••••" maxlength="20" autocomplete="off">
+    <button id="admin-pw-btn" onclick="checkPassword()">Unlock</button>
+    <div id="admin-pw-err"></div>
+    <button id="admin-pw-cancel" onclick="closeLock()">Cancel</button>
+  </div>
+</div>
+
+<!-- ══ ADMIN: Image manager panel (shown after auth) ══ -->
+<div id="img-mgr-panel">
+  <div id="img-mgr-inner">
+    <div id="img-mgr-header">
+      <h2>Image Manager <span class="mgr-admin-badge">Admin</span></h2>
+      <button id="img-mgr-close" onclick="closeMgr()">✕</button>
+    </div>
+    <div class="mgr-notice">
+      <strong>Admin mode.</strong> Upload your own photos below. Images are saved in your browser and will persist across sessions on this device. To update images on the live site, replace the files in the <code>images/</code> folder and push to GitHub.
+    </div>
+    <div class="mgr-progress"><div class="mgr-progress-bar" id="mgr-prog"></div></div>
+    <div id="img-mgr-slots"></div>
+    <div id="img-mgr-footer">
+      <span class="mgr-footer-note" id="mgr-storage-info">Calculating…</span>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+        <button id="mgr-clear-btn" onclick="clearAllImages()">Clear All</button>
+        <button id="mgr-export-btn" onclick="exportHTML()">Export HTML ↓</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<canvas id="proc-canvas" style="display:none"></canvas>
+<input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" style="display:none">
+
+<script>
+/* ══════════════════════════════════════
+   ADMIN AUTH
+══════════════════════════════════════ */
+const ADMIN_PW = '12345';
+let adminUnlocked = false;
+let keySeq = [];
+
+/* Secret key chord: press A then D then M to open lock screen */
+document.addEventListener('keydown', e => {
+  keySeq.push(e.key.toLowerCase());
+  keySeq = keySeq.slice(-3);
+  if (keySeq.join('') === 'adm') openLock();
+});
+
+/* Also open via URL param: ?admin */
+if (new URLSearchParams(location.search).has('admin')) openLock();
+
+function openLock() {
+  document.getElementById('admin-lock').classList.add('open');
+  setTimeout(() => document.getElementById('admin-pw-input').focus(), 100);
+}
+function closeLock() {
+  document.getElementById('admin-lock').classList.remove('open');
+  document.getElementById('admin-pw-input').value = '';
+  document.getElementById('admin-pw-err').textContent = '';
+}
+function checkPassword() {
+  const val = document.getElementById('admin-pw-input').value;
+  if (val === ADMIN_PW) {
+    adminUnlocked = true;
+    closeLock();
+    openMgr();
+  } else {
+    const inp = document.getElementById('admin-pw-input');
+    inp.classList.remove('shake');
+    void inp.offsetWidth;
+    inp.classList.add('shake');
+    document.getElementById('admin-pw-err').textContent = 'Incorrect password.';
+    inp.value = '';
+  }
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('admin-lock').classList.contains('open')) checkPassword();
+  if (e.key === 'Escape') { closeLock(); closeMgr(); }
+});
+
+/* ══════════════════════════════════════
+   IMAGE SLOTS CONFIG
+══════════════════════════════════════ */
+const IMAGE_SLOTS = [
+  { id:'intro-bg',  label:'Intro Background',     desc:'Opening screen',             file:'images/intro-bg.jpg',  w:1920, h:1080, maxKB:350 },
+  { id:'hero-0',    label:'Hero Slide 1',          desc:'Full-bleed hero',            file:'images/hero-0.jpg',    w:1920, h:1080, maxKB:350 },
+  { id:'hero-1',    label:'Hero Slide 2',          desc:'Full-bleed hero',            file:'images/hero-1.jpg',    w:1920, h:1080, maxKB:350 },
+  { id:'hero-2',    label:'Hero Slide 3',          desc:'Full-bleed hero',            file:'images/hero-2.jpg',    w:1920, h:1080, maxKB:350 },
+  { id:'proj-1',    label:'Project 1 — Large',     desc:'Portrait, main feature',     file:'images/proj-1.jpg',    w:800,  h:1100, maxKB:250 },
+  { id:'proj-2',    label:'Project 2',             desc:'Top-right grid',             file:'images/proj-2.jpg',    w:800,  h:600,  maxKB:200 },
+  { id:'proj-3',    label:'Project 3',             desc:'Bottom-left grid',           file:'images/proj-3.jpg',    w:800,  h:440,  maxKB:180 },
+  { id:'proj-4',    label:'Project 4',             desc:'Bottom-right grid',          file:'images/proj-4.jpg',    w:800,  h:440,  maxKB:180 },
+  { id:'proj-5',    label:'Project 5',             desc:'Secondary row',              file:'images/proj-5.jpg',    w:600,  h:360,  maxKB:150 },
+  { id:'proj-6',    label:'Project 6',             desc:'Secondary row',              file:'images/proj-6.jpg',    w:600,  h:360,  maxKB:150 },
+  { id:'proj-7',    label:'Project 7',             desc:'Secondary row',              file:'images/proj-7.jpg',    w:600,  h:360,  maxKB:150 },
+  { id:'spot',      label:'Studio Photo',          desc:'Spotlight panel',            file:'images/spot.jpg',      w:720,  h:600,  maxKB:200 },
+  { id:'insight-1', label:'Insight 1',             desc:'Blog card',                  file:'images/insight-1.jpg', w:560,  h:352,  maxKB:130 },
+  { id:'insight-2', label:'Insight 2',             desc:'Blog card',                  file:'images/insight-2.jpg', w:560,  h:352,  maxKB:130 },
+  { id:'insight-3', label:'Insight 3',             desc:'Blog card',                  file:'images/insight-3.jpg', w:560,  h:352,  maxKB:130 },
+];
+
+const canvas    = document.getElementById('proc-canvas');
+const ctx       = canvas.getContext('2d');
+const fileInput = document.getElementById('file-input');
+let activeSlotId = null;
+
+const storeKey = id => 'ed_img_' + id;
+const fmtKB = b => b < 1024*100 ? (b/1024).toFixed(1)+' KB' : (b/1024/1024).toFixed(2)+' MB';
+
+/* Map slot id → all <img> elements that show that image */
+function getImgEls(id) {
+  const map = {
+    'intro-bg':  [document.querySelector('.intro-bg img')],
+    'hero-0':    [document.querySelector('#slide-0 img, .slide:nth-child(3) img')],
+    'hero-1':    [document.querySelector('#slide-1 img, .slide:nth-child(4) img')],
+    'hero-2':    [document.querySelector('#slide-2 img, .slide:nth-child(5) img')],
+    'proj-1':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(1) img')],
+    'proj-2':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(2) img')],
+    'proj-3':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(3) img')],
+    'proj-4':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(4) img')],
+    'proj-5':    [document.querySelector('.proj-grid-secondary .proj-card-sm:nth-child(1) img')],
+    'proj-6':    [document.querySelector('.proj-grid-secondary .proj-card-sm:nth-child(2) img')],
+    'proj-7':    [document.querySelector('.proj-grid-secondary .proj-card-sm:nth-child(3) img')],
+    'spot':      [document.querySelector('.spot-img img')],
+    'insight-1': [document.querySelector('.insights-grid .insight-card:nth-child(1) img')],
+    'insight-2': [document.querySelector('.insights-grid .insight-card:nth-child(2) img')],
+    'insight-3': [document.querySelector('.insights-grid .insight-card:nth-child(3) img')],
+  };
+  return (map[id] || []).filter(Boolean);
+}
+
+function applyImageToSite(id, dataURL) {
+  getImgEls(id).forEach(img => { img.src = dataURL; });
+}
+
+async function compressImage(file, targetW, targetH, maxKB) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      const img = new Image();
+      img.onload = () => {
+        const srcRatio = img.width / img.height;
+        const dstRatio = targetW / targetH;
+        let sx, sy, sw, sh;
+        if (srcRatio > dstRatio) {
+          sh = img.height; sw = Math.round(img.height * dstRatio);
+          sy = 0; sx = Math.round((img.width - sw) / 2);
+        } else {
+          sw = img.width; sh = Math.round(img.width / dstRatio);
+          sx = 0; sy = Math.round((img.height - sh) / 2);
+        }
+        canvas.width = targetW; canvas.height = targetH;
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
+        const maxBytes = maxKB * 1024;
+        let quality = 0.88, dataURL, attempt = 0;
+        do {
+          dataURL = canvas.toDataURL('image/jpeg', quality);
+          const byteLen = Math.round((dataURL.length - 22) * 3 / 4);
+          if (byteLen <= maxBytes || quality <= 0.4) break;
+          quality -= 0.06; attempt++;
+        } while (attempt < 10);
+        resolve(dataURL);
+      };
+      img.onerror = () => reject(new Error('Could not load image'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Could not read file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleFileSelected(file, slotId) {
+  const slot    = IMAGE_SLOTS.find(s => s.id === slotId);
+  if (!slot) return;
+  const mgrSlot = document.getElementById('mgr-slot-' + slotId);
+  const status  = mgrSlot?.querySelector('.mgr-status');
+  const prog    = document.getElementById('mgr-prog');
+  if (status) { status.className = 'mgr-status busy'; status.textContent = '⏳ Processing…'; }
+  if (prog) prog.style.width = '30%';
+  try {
+    const dataURL   = await compressImage(file, slot.w, slot.h, slot.maxKB);
+    const finalSize = Math.round((dataURL.length - 22) * 3 / 4);
+    if (prog) prog.style.width = '80%';
+    applyImageToSite(slotId, dataURL);
+    try { localStorage.setItem(storeKey(slotId), dataURL); } catch(e) {}
+    if (prog) setTimeout(() => { prog.style.width = '0'; }, 800);
+    if (mgrSlot) {
+      const previewImg  = mgrSlot.querySelector('.mgr-slot-preview img');
+      const placeholder = mgrSlot.querySelector('.mgr-placeholder');
+      if (previewImg) previewImg.src = dataURL;
+      if (placeholder) placeholder.style.display = 'none';
+      const sizeEl = mgrSlot.querySelector('.mgr-slot-name + .mgr-slot-desc + .mgr-slot-size, .mgr-slot-size');
+      if (status) { status.className = 'mgr-status ok'; status.textContent = `✓ Updated (${slot.w}×${slot.h}, ${fmtKB(finalSize)})`; }
+    }
+    updateStorageInfo();
+  } catch(err) {
+    if (prog) prog.style.width = '0';
+    if (status) { status.className = 'mgr-status err'; status.textContent = '✕ ' + err.message; }
+  }
+}
+
+function openMgr() {
+  if (!adminUnlocked) { openLock(); return; }
+  document.getElementById('img-mgr-panel').classList.add('open');
+  buildMgrSlots();
+  updateStorageInfo();
+}
+function closeMgr() { document.getElementById('img-mgr-panel').classList.remove('open'); }
+
+function buildMgrSlots() {
+  const container = document.getElementById('img-mgr-slots');
+  if (container.dataset.built) return;
+  container.dataset.built = '1';
+  container.innerHTML = '';
+  IMAGE_SLOTS.forEach(slot => {
+    const stored = localStorage.getItem(storeKey(slot.id));
+    const currentSrc = stored || slot.file;
+    const div = document.createElement('div');
+    div.className = 'mgr-slot';
+    div.id = 'mgr-slot-' + slot.id;
+    div.onclick = () => triggerUpload(slot.id);
+    div.innerHTML = `
+      <div class="mgr-slot-preview">
+        <img src="${currentSrc}" alt="" style="width:100%;height:100%;object-fit:cover;">
+        <div class="mgr-placeholder" style="display:none">
+          <span class="mgr-placeholder-icon">📷</span>
+          <span class="mgr-placeholder-text">Click to upload</span>
+        </div>
+        <div class="mgr-upload-overlay">
+          <span>Replace Photo</span>
+          <span style="font-size:.65rem;opacity:.8">${slot.w}×${slot.h}px</span>
+        </div>
+      </div>
+      <div class="mgr-slot-info">
+        <div class="mgr-slot-name">${slot.label}</div>
+        <div class="mgr-slot-desc">${slot.desc} · max ${slot.maxKB}KB</div>
+        <div class="mgr-slot-size">${stored ? '✓ Custom image stored' : 'Using default placeholder'}</div>
+      </div>
+      <div class="mgr-status ${stored ? 'ok' : ''}">${stored ? '✓ Custom image active' : 'Showing placeholder — click to upload your photo'}</div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function triggerUpload(slotId) {
+  if (!adminUnlocked) return;
+  activeSlotId = slotId;
+  fileInput.value = '';
+  fileInput.click();
+}
+
+fileInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (file && activeSlotId) handleFileSelected(file, activeSlotId);
+});
+
+function updateStorageInfo() {
+  let total = 0;
+  const used = IMAGE_SLOTS.filter(s => { const d = localStorage.getItem(storeKey(s.id)); if(d) total += d.length*2; return !!d; }).length;
+  const el = document.getElementById('mgr-storage-info');
+  if (el) el.textContent = `${used} of ${IMAGE_SLOTS.length} images customised · ~${fmtKB(total)} stored`;
+}
+
+function clearAllImages() {
+  if (!confirm('Reset all custom images? This cannot be undone.')) return;
+  IMAGE_SLOTS.forEach(s => {
+    localStorage.removeItem(storeKey(s.id));
+    getImgEls(s.id).forEach(img => { img.src = s.file; });
+  });
+  const container = document.getElementById('img-mgr-slots');
+  delete container.dataset.built;
+  buildMgrSlots();
+  updateStorageInfo();
+}
+
+function exportHTML() {
+  const btn = document.getElementById('mgr-export-btn');
+  btn.textContent = 'Preparing…'; btn.disabled = true;
+  setTimeout(() => {
+    let html = document.documentElement.outerHTML;
+    IMAGE_SLOTS.forEach(s => {
+      const data = localStorage.getItem(storeKey(s.id));
+      if (!data) return;
+      const escaped = s.file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      html = html.replace(new RegExp(`src="${escaped}"`, 'g'), `src="${data}"`);
+    });
+    const blob = new Blob([html], { type: 'text/html' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click();
+    URL.revokeObjectURL(a.href);
+    btn.textContent = 'Export HTML ↓'; btn.disabled = false;
+  }, 100);
+}
+
+/* Load any previously stored admin images */
+function loadStoredImages() {
+  IMAGE_SLOTS.forEach(s => {
+    const data = localStorage.getItem(storeKey(s.id));
+    if (data) applyImageToSite(s.id, data);
+  });
+}
+
+/* ══════════════════════════════════════
+   MOBILE NAV
+══════════════════════════════════════ */
+const hamburger = document.getElementById('nav-hamburger');
+const drawer    = document.getElementById('nav-drawer');
+hamburger.addEventListener('click', () => {
+  const open = drawer.classList.toggle('open');
+  hamburger.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('.nav-drawer-link').forEach(link => {
+  link.addEventListener('click', () => {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ══════════════════════════════════════
+   INTRO TYPEWRITER
+══════════════════════════════════════ */
+function runIntroSequence() {
+  const introSlide = document.getElementById('intro-slide');
+  const introText  = document.getElementById('intro-text');
+  const tagline    = document.getElementById('intro-tagline');
+  const skipBtn    = document.getElementById('intro-skip');
+  const lines = [{ text:"Building Africa's", gold:false }, { text:'future.', gold:true }];
+  let dismissed = false, autoTimer2;
+  skipBtn.addEventListener('click', dismiss);
+
+  const lineEls = [], underlines = [];
+  lines.forEach(lineData => {
+    const wrap = document.createElement('span'); wrap.className = 'tw-line';
+    const el = lineData.gold ? document.createElement('em') : document.createElement('span');
+    el.textContent = '';
+    const ul = document.createElement('span'); ul.className = 'tw-underline'; ul.style.transition = 'none';
+    wrap.appendChild(el); wrap.appendChild(ul); introText.appendChild(wrap);
+    lineEls.push(el); underlines.push(ul);
+  });
+  const cursor = document.createElement('span'); cursor.className = 'tw-cursor';
+
+  function typeLine(lineIdx, charIdx, onDone) {
+    const { text } = lines[lineIdx];
+    const el = lineEls[lineIdx], ul = underlines[lineIdx], wrap = el.parentElement;
+    if (charIdx === 0) { wrap.appendChild(cursor); ul.style.transition='none'; ul.style.width='0px'; }
+    el.textContent = text.slice(0, charIdx);
+    requestAnimationFrame(() => { ul.style.width = el.offsetWidth + 'px'; });
+    if (charIdx < text.length) {
+      setTimeout(() => typeLine(lineIdx, charIdx + 1, onDone), 52 + Math.random() * 30);
+    } else {
+      setTimeout(() => { ul.style.transition='width .35s ease .05s'; ul.style.width='0px'; setTimeout(onDone, 400); }, 200);
+    }
+  }
+  function typeAllLines(idx) {
+    if (idx >= lines.length) { tagline.classList.add('visible'); autoTimer2 = setTimeout(dismiss, 2800); return; }
+    typeLine(idx, 0, () => setTimeout(() => typeAllLines(idx + 1), 160));
+  }
+  function dismiss() {
+    if (dismissed) return; dismissed = true;
+    clearTimeout(autoTimer2); cursor.remove();
+    introSlide.classList.add('fade-out');
+    setTimeout(() => { introSlide.style.display = 'none'; startAuto(); }, 1200);
+  }
+  typeAllLines(0);
+}
+
+/* ══════════════════════════════════════
+   SLIDESHOW
+══════════════════════════════════════ */
+let current = 0;
+const slides   = document.querySelectorAll('.slide');
+const captions = document.querySelectorAll('.caption');
+const dotBtns  = document.querySelectorAll('.dot-btn');
+const counter  = document.getElementById('slide-current');
+let autoTimer;
+
+function goTo(n) {
+  slides[current].classList.remove('active');
+  captions[current].classList.remove('active');
+  dotBtns[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  captions[current].classList.add('active');
+  dotBtns[current].classList.add('active');
+  counter.textContent = String(current + 1).padStart(2, '0');
+}
+function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 6000); }
+function resetAuto() { clearInterval(autoTimer); startAuto(); }
+
+document.getElementById('next-btn').onclick = () => { goTo(current + 1); resetAuto(); };
+document.getElementById('prev-btn').onclick = () => { goTo(current - 1); resetAuto(); };
+dotBtns.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.slide); resetAuto(); }));
+
+/* Touch swipe on hero */
+(function(){
+  let tx = 0;
+  const hero = document.getElementById('hero');
+  hero.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  hero.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx;
+    if (Math.abs(dx) > 50) { dx < 0 ? goTo(current + 1) : goTo(current - 1); resetAuto(); }
+  }, { passive: true });
+})();
+
+/* ══════════════════════════════════════
+   NAV SCROLL
+══════════════════════════════════════ */
+const hdr = document.getElementById('header');
+window.addEventListener('scroll', () => hdr.classList.toggle('solid', scrollY > 80), { passive: true });
+
+/* ══════════════════════════════════════
+   SCROLL REVEAL
+══════════════════════════════════════ */
+document.querySelectorAll('.rv').forEach(el => {
+  new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: .1, rootMargin: '0px 0px -30px 0px' }).observe(el);
+});
+
+/* ══════════════════════════════════════
+   COUNT-UP
+══════════════════════════════════════ */
+document.querySelectorAll('.cnt[data-t]').forEach(el => {
+  new IntersectionObserver(([e], obs) => {
+    if (!e.isIntersecting) return;
+    const t = +el.dataset.t; let s = null;
+    const step = ts => {
+      if (!s) s = ts;
+      const ease = 1 - Math.pow(1 - Math.min((ts - s) / 2000, 1), 3);
+      el.textContent = Math.floor(ease * t);
+      if (ease < 1) requestAnimationFrame(step); else el.textContent = t;
+    };
+    requestAnimationFrame(step); obs.unobserve(el);
+  }, { threshold: .5 }).observe(el);
+});
+
+/* ══════════════════════════════════════
+   CONTACT FORM
+══════════════════════════════════════ */
+function handleForm(e) {
+  e.preventDefault();
+  const btn = e.target.querySelector('.fsub');
+  btn.textContent = 'Submitting…'; btn.style.opacity = '.6';
+  setTimeout(() => {
+    btn.textContent = 'Enquiry Received ✓';
+    btn.style.background = '#1A3A22'; btn.style.color = '#fff'; btn.style.opacity = '1';
+  }, 1200);
+}
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+window.addEventListener('DOMContentLoaded', () => {
+  loadStoredImages();
+  runIntroSequence();
+});
+</script>
+</body>
+</html>
