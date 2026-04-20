@@ -31,11 +31,55 @@ img{display:block;width:100%;height:100%;object-fit:cover;object-position:center
 header{position:fixed;top:0;left:0;right:0;z-index:500;transition:background .4s,box-shadow .4s;}
 header.solid{background:#fff;box-shadow:0 1px 0 var(--border);}
 nav{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:80px;}
-.nav-logo{display:flex;align-items:center;height:80px;padding:10px 0;flex-shrink:0;}
-.nav-logo img{height:100%;width:auto;max-width:340px;object-fit:contain;object-position:left center;display:block;}
-.nav-logo-fallback{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;letter-spacing:.02em;color:#fff;transition:color .3s;white-space:nowrap;}
-.nav-logo-fallback .dot{color:var(--gold);}
+.nav-logo{display:flex;align-items:center;height:80px;padding:8px 0;flex-shrink:0;}
+
+/* Single logo image — always visible, colour controlled by CSS filter only */
+.nav-logo-img{
+  display:block;
+  height:60px;
+  width:auto;
+  max-width:280px;
+  object-fit:contain;
+  object-position:left center;
+  /* White version for transparent/dark header */
+  filter:brightness(0) invert(1);
+  transition:filter .4s ease;
+}
+/* Natural colour once header goes solid white */
+header.solid .nav-logo-img{
+  filter:none;
+}
+/* Fallback text — only shown if image fails to load */
+.nav-logo-fallback{
+  font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;
+  letter-spacing:.02em;color:#fff;transition:color .3s;white-space:nowrap;
+  display:none;
+}
+.nav-logo-img[style*="display:none"] ~ .nav-logo-fallback,
+.nav-logo-img.logo-error ~ .nav-logo-fallback{display:block;}
 header.solid .nav-logo-fallback{color:var(--black);}
+.nav-logo-fallback .dot{color:var(--gold);}
+
+/* Footer logo */
+.footer-logo-img{
+  display:block;
+  height:56px;
+  width:auto;
+  max-width:240px;
+  object-fit:contain;
+  object-position:left;
+  /* Invert to white on dark footer background */
+  filter:brightness(0) invert(1);
+  opacity:.85;
+  margin-bottom:1.2rem;
+}
+.footer-brand-fallback{
+  font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;
+  color:#fff;display:none;margin-bottom:1.2rem;
+}
+.footer-logo-img[style*="display:none"] ~ .footer-brand-fallback,
+.footer-logo-img.logo-error ~ .footer-brand-fallback{display:block;}
+.footer-brand-fallback .dot{color:var(--gold);}
 
 /* Mobile hamburger */
 .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;z-index:600;}
@@ -194,6 +238,7 @@ header.solid .nav-contact:hover{background:var(--black);color:#fff;}
 .insight-img .img-slot{position:absolute;inset:0;}
 .insight-cat{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.55rem;}
 .insight-title{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:400;line-height:1.42;color:var(--black);margin-bottom:.6rem;transition:color .2s;}
+a.insight-card{display:block;text-decoration:none;color:inherit;}
 .insight-card:hover .insight-title{color:var(--gold);}
 .insight-date{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:300;color:var(--mid);}
 
@@ -263,22 +308,19 @@ header.solid .nav-contact:hover{background:var(--black);color:#fff;}
 .fsub{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--black);border:none;padding:1rem 2.5rem;cursor:pointer;align-self:flex-start;transition:all .3s;min-height:48px;}
 .fsub:hover{background:var(--gold2);transform:translateY(-2px);}
 
-/* ── AWARDS ── */
-.awards{background:var(--off-white);padding:2.5rem 1.5rem;border-top:1px solid var(--border);}
-.awards-inner{max-width:1600px;margin:0 auto;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
-.awards-label{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);white-space:nowrap;}
-.awards-div{width:1px;height:22px;background:var(--border);}
-.awards-list{display:flex;flex-wrap:wrap;align-items:center;}
-.award-item{font-family:'Barlow',sans-serif;font-size:.85rem;font-weight:300;color:#666;padding:.3rem 1.5rem;position:relative;}
-.award-item::after{content:'·';position:absolute;right:0;top:50%;transform:translateY(-50%);color:var(--gold);font-size:1.2rem;}
-.award-item:last-child::after{display:none;}
+/* ── PROJECT CARD LINKS ── */
+a.proj-card,a.proj-card-sm{display:block;text-decoration:none;}
+
+/* ── WHATSAPP BUTTON ── */
+.fsub-wa{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:#25D366;color:#fff;border:none;padding:1rem 2.5rem;cursor:pointer;align-self:flex-start;transition:all .3s;min-height:48px;display:inline-flex;align-items:center;gap:.7rem;}
+.fsub-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
+.fsub-wa svg{flex-shrink:0;}
+.form-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
 
 /* ── FOOTER ── */
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 .footer-main{max-width:1600px;margin:0 auto;padding:4rem 1.5rem 2.5rem;display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:3rem;}
-.footer-brand{display:block;margin-bottom:1.2rem;}
-.footer-brand-fallback{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;color:#fff;display:block;}
-.footer-brand-fallback .dot{color:var(--gold);}
+.footer-brand{display:block;}
 .footer-tagline{font-family:'Barlow',sans-serif;font-size:.84rem;font-weight:300;line-height:1.8;color:rgba(255,255,255,.32);max-width:28ch;margin-bottom:1.8rem;}
 .footer-social{display:flex;gap:1.2rem;}
 .fsocial{font-family:'Barlow Condensed',sans-serif;font-size:.62rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);transition:color .2s;min-height:44px;display:inline-flex;align-items:center;}
@@ -424,7 +466,8 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 }
 @media(max-width:768px){
   nav{padding:0 1.25rem;height:64px;}
-  .nav-logo{height:64px;padding:8px 0;}
+  .nav-logo{height:64px;padding:6px 0;}
+  .nav-logo-img{height:46px;max-width:180px;}
   .nav-center,.nav-right .nav-contact{display:none;}
   .nav-hamburger{display:flex;}
   .hero{height:100svh;}
@@ -467,9 +510,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   .contact{padding:4rem 1.25rem;}
   .contact-inner{gap:2.5rem;}
   .form-row{grid-template-columns:1fr;}
-  .awards{padding:2rem 1.25rem;}
-  .awards-div{display:none;}
-  .award-item{font-size:.8rem;}
   .footer-main{padding:3rem 1.25rem 2rem;grid-template-columns:1fr 1fr;gap:2rem 1.5rem;}
   .footer-main > div:first-child{grid-column:1 / -1;}
   .footer-bottom{padding:1.2rem 1.25rem 2rem;flex-direction:column;align-items:flex-start;}
@@ -494,7 +534,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 
 <header id="header">
   <nav>
-    <a href="#" class="nav-logo">
+    <a href="#" class="nav-logo" aria-label="Elegant Designs — back to top">
+      <!-- Replace images/logo.png with your logo file (PNG with transparency recommended) -->
+      <img class="nav-logo-img" id="nav-logo-img" src="images/logo.png" alt="Elegant Designs"
+           onerror="this.classList.add('logo-error');this.style.display='none'">
       <span class="nav-logo-fallback">Elegant<span class="dot">.</span>Designs</span>
     </a>
     <ul class="nav-center">
@@ -606,46 +649,47 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <div class="section-eyebrow">Featured Projects</div>
       <h2 class="section-title">Buildings that<br>define <em>skylines.</em></h2>
     </div>
-    <a href="#" class="view-all rv">View All Projects</a>
+    <a href="#" class="view-all rv"><!-- TODO: link to your full projects page or Instagram profile -->View All Projects</a>
   </div>
   <div class="proj-grid-primary">
-    <div class="proj-card">
+    <!-- TODO: replace each href="#" with the URL for that project (Instagram post, portfolio page, etc.) -->
+    <a class="proj-card" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-1.jpg" alt="The Meridian Tower"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Mixed-Use · Dar es Salaam</div><div class="proj-name">The Meridian Tower</div><div class="proj-loc">85 Floors · 320m · LEED Platinum · 2025</div></div>
-    </div>
-    <div class="proj-card">
+    </a>
+    <a class="proj-card" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-2.jpg" alt="Savanna Office Park"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Commercial Campus · Nairobi</div><div class="proj-name">Savanna Office Park</div><div class="proj-loc">12 Hectares · 100% Renewable · 2022</div></div>
-    </div>
-    <div class="proj-card">
+    </a>
+    <a class="proj-card" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-3.jpg" alt="Aso Cultural Dome"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Cultural Hub · Lagos</div><div class="proj-name">Aso Cultural Dome</div><div class="proj-loc">Parametric Shell · Rammed Earth · 2024</div></div>
-    </div>
-    <div class="proj-card">
+    </a>
+    <a class="proj-card" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-4.jpg" alt="Green Quarter Lagos"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Masterplan · Lagos</div><div class="proj-name">Green Quarter Lagos</div><div class="proj-loc">80 Hectares · 12 Buildings · 2026</div></div>
-    </div>
+    </a>
   </div>
   <div class="proj-grid-secondary">
-    <div class="proj-card-sm">
+    <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-5.jpg" alt="Canopy Stack"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Residential · Nairobi</div><div class="proj-name">Canopy Stack</div><div class="proj-loc">Modular · Living Terraces · 2023</div></div>
-    </div>
-    <div class="proj-card-sm">
+    </a>
+    <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-6.jpg" alt="Volta Arts Centre"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Cultural · Accra</div><div class="proj-name">Volta Arts Centre</div><div class="proj-loc">Solar Louvers · Bioclimatic · 2023</div></div>
-    </div>
-    <div class="proj-card-sm">
+    </a>
+    <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-7.jpg" alt="Bahari Tower"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Residential · Dar es Salaam</div><div class="proj-name">Bahari Tower</div><div class="proj-loc">Vertical Garden · Geothermal · 2023</div></div>
-    </div>
+    </a>
   </div>
 </section>
 
@@ -677,27 +721,28 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   <div class="insights-inner">
     <div class="insights-header rv">
       <div><div class="section-eyebrow">Insights & Ideas</div><h2 class="section-title">Thinking about<br>the <em>future.</em></h2></div>
-      <a href="#" class="view-all">View All</a>
+      <a href="#" class="view-all"><!-- TODO: link to your blog or articles page -->View All</a>
     </div>
     <div class="insights-grid">
-      <div class="insight-card rv">
+      <!-- Set href="#" to the URL where people can read the full article -->
+      <a class="insight-card rv" href="#" target="_blank" rel="noopener">
         <div class="insight-img"><div class="img-slot"><img src="images/insight-1.jpg" alt="Insight 1"></div></div>
         <div class="insight-cat">Sustainability</div>
         <div class="insight-title">Why Africa's Next Cities Must Be Built Ecologically From the Ground Up</div>
         <div class="insight-date">April 2025</div>
-      </div>
-      <div class="insight-card rv d1">
+      </a>
+      <a class="insight-card rv d1" href="#" target="_blank" rel="noopener">
         <div class="insight-img"><div class="img-slot"><img src="images/insight-2.jpg" alt="Insight 2"></div></div>
         <div class="insight-cat">Research</div>
         <div class="insight-title">Passive Cooling in Tropical Climates: How We Eliminated Air Conditioning From Our Last Three Projects</div>
         <div class="insight-date">January 2025</div>
-      </div>
-      <div class="insight-card rv d2">
+      </a>
+      <a class="insight-card rv d2" href="#" target="_blank" rel="noopener">
         <div class="insight-img"><div class="img-slot"><img src="images/insight-3.jpg" alt="Insight 3"></div></div>
         <div class="insight-cat">Design</div>
         <div class="insight-title">The Living Facade: How We Integrate 18,000m² of Vertical Garden Across Our Portfolio</div>
         <div class="insight-date">October 2024</div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -748,20 +793,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   </div>
 </section>
 
-<section class="awards">
-  <div class="awards-inner">
-    <div class="awards-label">Recognition</div>
-    <div class="awards-div"></div>
-    <div class="awards-list">
-      <span class="award-item">AIA Small Firm Award 2024</span>
-      <span class="award-item">African Architecture Prize — Finalist</span>
-      <span class="award-item">LEED Project of the Year 2023</span>
-      <span class="award-item">Dezeen Sustainable Design Longlist</span>
-      <span class="award-item">UN-Habitat Innovation Award</span>
-    </div>
-  </div>
-</section>
-
 <section class="contact" id="contact">
   <div class="contact-inner">
     <div>
@@ -775,14 +806,14 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
         <div class="ct-detail-item"><span class="ct-detail-label">Offices</span><span class="ct-detail-val">Nairobi · Lagos · Accra</span></div>
       </div>
     </div>
-    <form class="form rv d1" onsubmit="handleForm(event)">
+    <form class="form rv d1" onsubmit="handleWhatsApp(event)">
       <div class="form-row">
-        <div class="fg"><label class="fl">First Name</label><input class="fi" type="text" placeholder="Amara"></div>
-        <div class="fg"><label class="fl">Last Name</label><input class="fi" type="text" placeholder="Osei"></div>
+        <div class="fg"><label class="fl">First Name</label><input class="fi" id="f-fname" type="text" placeholder="Amara" required></div>
+        <div class="fg"><label class="fl">Last Name</label><input class="fi" id="f-lname" type="text" placeholder="Osei"></div>
       </div>
-      <div class="fg"><label class="fl">Email</label><input class="fi" type="email" placeholder="amara@company.com"></div>
+      <div class="fg"><label class="fl">Email</label><input class="fi" id="f-email" type="email" placeholder="amara@company.com"></div>
       <div class="fg"><label class="fl">Project Type</label>
-        <select class="fsel">
+        <select class="fsel" id="f-type">
           <option value="">Select a type</option>
           <option>High-rise / Tower</option>
           <option>Commercial Campus</option>
@@ -792,9 +823,14 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
           <option>Sustainability Advisory</option>
         </select>
       </div>
-      <div class="fg"><label class="fl">Location</label><input class="fi" type="text" placeholder="City, Country"></div>
-      <div class="fg"><label class="fl">About Your Project</label><textarea class="fta" placeholder="What are you building — and why does it matter?"></textarea></div>
-      <button class="fsub" type="submit">Submit Enquiry</button>
+      <div class="fg"><label class="fl">Location</label><input class="fi" id="f-location" type="text" placeholder="City, Country"></div>
+      <div class="fg"><label class="fl">About Your Project</label><textarea class="fta" id="f-message" placeholder="What are you building — and why does it matter?"></textarea></div>
+      <div class="form-actions">
+        <button class="fsub-wa" type="submit">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Send via WhatsApp
+        </button>
+      </div>
     </form>
   </div>
 </section>
@@ -802,21 +838,25 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 <footer>
   <div class="footer-main">
     <div>
-      <span class="footer-brand"><span class="footer-brand-fallback">Elegant<span class="dot">.</span>Designs</span></span>
+      <span class="footer-brand">
+        <img class="footer-logo-img" src="images/logo.png" alt="Elegant Designs"
+             onerror="this.classList.add('logo-error');this.style.display='none'">
+        <span class="footer-brand-fallback">Elegant<span class="dot">.</span>Designs</span>
+      </span>
       <p class="footer-tagline">Ecological architecture and construction for Africa's future cities. Est. Dar es Salaam, 2019.</p>
       <div class="footer-social">
-        <a href="#" class="fsocial">Instagram</a>
-        <a href="#" class="fsocial">LinkedIn</a>
-        <a href="#" class="fsocial">Dezeen</a>
+        <a href="#" class="fsocial"><!-- TODO: e.g. https://instagram.com/elegantdesigns -->Instagram</a>
+        <a href="#" class="fsocial"><!-- TODO: e.g. https://linkedin.com/company/elegantdesigns -->LinkedIn</a>
+        <a href="#" class="fsocial"><!-- TODO: e.g. https://dezeen.com/... -->Dezeen</a>
       </div>
     </div>
-    <div class="fc"><span class="fc-title">Practice</span><ul><li><a href="#projects">Projects</a></li><li><a href="#approach">Approach</a></li><li><a href="#insights">Insights</a></li><li><a href="#studio">Studio</a></li><li><a href="#">Careers</a></li></ul></div>
-    <div class="fc"><span class="fc-title">Expertise</span><ul><li><a href="#">Architecture</a></li><li><a href="#">Construction</a></li><li><a href="#">Masterplanning</a></li><li><a href="#">Urban Design</a></li><li><a href="#">Sustainability</a></li></ul></div>
-    <div class="fc"><span class="fc-title">Offices</span><ul><li><a href="#">Dar es Salaam</a></li><li><a href="#">Nairobi</a></li><li><a href="#">Lagos</a></li><li><a href="#">Accra</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Practice</span><ul><li><a href="#projects">Projects</a></li><li><a href="#approach">Approach</a></li><li><a href="#insights">Insights</a></li><li><a href="#studio">Studio</a></li><li><a href="#"><!-- TODO: careers page URL -->Careers</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Expertise</span><ul><li><a href="#"><!-- TODO -->Architecture</a></li><li><a href="#"><!-- TODO -->Construction</a></li><li><a href="#"><!-- TODO -->Masterplanning</a></li><li><a href="#"><!-- TODO -->Urban Design</a></li><li><a href="#"><!-- TODO -->Sustainability</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Offices</span><ul><li><a href="#"><!-- TODO: Google Maps or contact anchor -->Dar es Salaam</a></li><li><a href="#"><!-- TODO -->Nairobi</a></li><li><a href="#"><!-- TODO -->Lagos</a></li><li><a href="#"><!-- TODO -->Accra</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span class="fc-copy">© 2025 Elegant Designs. All Rights Reserved.</span>
-    <div class="fc-links"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">LEED AP · BREEAM · EDGE Certified</a></div>
+    <div class="fc-links"><a href="#"><!-- TODO: privacy policy page -->Privacy Policy</a><a href="#"><!-- TODO: terms of use page -->Terms of Use</a><a href="#">LEED AP · BREEAM · EDGE Certified</a></div>
   </div>
 </footer>
 
@@ -1263,16 +1303,32 @@ document.querySelectorAll('.cnt[data-t]').forEach(el => {
 });
 
 /* ══════════════════════════════════════
-   CONTACT FORM
+   WHATSAPP FORM
+   ↓ Replace with your WhatsApp number (international format, no + or spaces)
 ══════════════════════════════════════ */
-function handleForm(e) {
+const WA_NUMBER = '255787165837'; // +255 787 165 837
+
+function handleWhatsApp(e) {
   e.preventDefault();
-  const btn = e.target.querySelector('.fsub');
-  btn.textContent = 'Submitting…'; btn.style.opacity = '.6';
-  setTimeout(() => {
-    btn.textContent = 'Enquiry Received ✓';
-    btn.style.background = '#1A3A22'; btn.style.color = '#fff'; btn.style.opacity = '1';
-  }, 1200);
+  const fname    = document.getElementById('f-fname').value.trim();
+  const lname    = document.getElementById('f-lname').value.trim();
+  const email    = document.getElementById('f-email').value.trim();
+  const type     = document.getElementById('f-type').value;
+  const location = document.getElementById('f-location').value.trim();
+  const message  = document.getElementById('f-message').value.trim();
+
+  const lines = [
+    `👋 *New Project Enquiry — Elegant Designs*`,
+    ``,
+    `*Name:* ${fname}${lname ? ' ' + lname : ''}`,
+    email    ? `*Email:* ${email}`           : null,
+    type     ? `*Project Type:* ${type}`     : null,
+    location ? `*Location:* ${location}`     : null,
+    message  ? `\n*About the project:*\n${message}` : null,
+  ].filter(l => l !== null).join('\n');
+
+  const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines)}`;
+  window.open(url, '_blank', 'noopener');
 }
 
 /* ══════════════════════════════════════
