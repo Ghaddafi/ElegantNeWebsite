@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#111111">
 <title>Elegant Designs — Architecture & Construction</title>
+
+<!-- Favicon — uses same logo.png file -->
+<link rel="icon" type="image/png" href="images/logo.png">
+<link rel="apple-touch-icon" href="images/logo.png">
+
+<!-- CRITICAL: preload above-the-fold images so they start fetching immediately -->
+<link rel="preload" as="image" href="images/hero-0.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="images/intro-bg.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="images/hero-1.jpg">
+<link rel="preload" as="image" href="images/hero-2.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -122,7 +133,7 @@ header.solid .nav-contact:hover{background:var(--black);color:#fff;}
 .intro-text em{font-style:italic;color:var(--gold);}
 .tw-line{display:block;position:relative;}
 .tw-underline{position:absolute;bottom:-4px;left:0;height:2px;background:var(--gold);width:0;}
-.tw-cursor{display:inline-block;width:3px;height:.82em;background:var(--gold);margin-left:3px;vertical-align:middle;position:relative;top:-.05em;animation:twBlink .65s step-end infinite;}
+.tw-cursor{display:inline-block;color:var(--gold);margin-left:4px;vertical-align:middle;position:relative;top:-.05em;font-style:normal;font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:.75em;letter-spacing:0;animation:twBlink .65s step-end infinite;}
 @keyframes twBlink{0%,100%{opacity:1}50%{opacity:0}}
 .intro-tagline{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);opacity:0;transform:translateY(8px);display:flex;align-items:center;gap:.8rem;transition:opacity .6s ease,transform .6s ease;}
 .intro-tagline::before{content:'';width:28px;height:1.5px;background:var(--gold);}
@@ -537,7 +548,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
     <a href="#" class="nav-logo" aria-label="Elegant Designs — back to top">
       <!-- Replace images/logo.png with your logo file (PNG with transparency recommended) -->
       <img class="nav-logo-img" id="nav-logo-img" src="images/logo.png" alt="Elegant Designs"
-           onerror="this.classList.add('logo-error');this.style.display='none'">
+           decoding="async" onerror="this.classList.add('logo-error');this.style.display='none'">
       <span class="nav-logo-fallback">Elegant<span class="dot">.</span>Designs</span>
     </a>
     <ul class="nav-center">
@@ -569,27 +580,27 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   <div class="intro-slide" id="intro-slide">
     <div class="intro-bg">
       <div class="img-slot">
-        <img src="images/hero-0.jpg" alt="Elegant Designs"> 
+        <img src="images/hero-0.jpg" alt="Elegant Designs" loading="eager" fetchpriority="high" decoding="async">
       </div>
     </div>
     <div class="intro-scanline"></div>
     <div class="intro-content">
       <div class="intro-inner">
         <div class="intro-text" id="intro-text"></div>
-        <div class="intro-tagline" id="intro-tagline"> OUR WORK SPEAKS </div>
+        <div class="intro-tagline" id="intro-tagline">OUR WORK SPEAKS</div>
       </div>
     </div>
     <button class="intro-skip" id="intro-skip">Skip intro</button>
   </div>
 
   <div class="slide active">
-    <div class="img-slot"><img src="images/intro-bg.jpg" alt="Elegant Designs — Project 1"></div>
+    <div class="img-slot"><img src="images/intro-bg.jpg" alt="Elegant Designs — Project 1" loading="eager" fetchpriority="high" decoding="async"></div>
   </div>
   <div class="slide">
-    <div class="img-slot"><img src="images/hero-1.jpg" alt="Elegant Designs — Project 2"></div>
+    <div class="img-slot"><img src="images/hero-1.jpg" alt="Elegant Designs — Project 2" loading="eager" fetchpriority="low" decoding="async"></div>
   </div>
   <div class="slide">
-    <div class="img-slot"><img src="images/hero-2.jpg" alt="Elegant Designs — Project 3"></div>
+    <div class="img-slot"><img src="images/hero-2.jpg" alt="Elegant Designs — Project 3" loading="eager" fetchpriority="low" decoding="async"></div>
   </div>
 
   <div class="hero-overlay">
@@ -597,21 +608,21 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <div class="hero-captions">
         <div class="caption active">
           <div class="caption-tag">Ecological Architecture · Dar es Salaam</div>
-          <h1 class="caption-h"> Msasani <br> Beach, <em> Villa </em></h1>
+          <h1 class="caption-h">Msasani<br>Beach, <em>Villa</em></h1>
           <p class="caption-sub">320 metres. 85 floors. Net zero. A new landmark for East Africa's skyline.</p>
-          <a href="#projects" class="caption-btn">VIEW MORE PROJECTS </a>
+          <a href="#projects" class="caption-btn">View More Projects</a>
         </div>
         <div class="caption">
-          <div class="caption-tag">Commercial Residence · Dar Es Salaam </div>
-          <h1 class="caption-h"> Sinza <br><em> Appartments </em></h1>
+          <div class="caption-tag">Commercial Residence · Dar es Salaam</div>
+          <h1 class="caption-h">Sinza<br><em>Apartments</em></h1>
           <p class="caption-sub">Six towers. Six sky bridges. 12 hectares of net-zero commercial space.</p>
-          <a href="#projects" class="caption-btn"> VIEW MORE PROJECTS </a>
+          <a href="#projects" class="caption-btn">View More Projects</a>
         </div>
         <div class="caption">
-          <div class="caption-tag">Masterplan · Dar Es Salaam </div>
-          <h1 class="caption-h"> Mbweni <br><em>Residences </em></h1>
+          <div class="caption-tag">Masterplan · Dar es Salaam</div>
+          <h1 class="caption-h">Mbweni<br><em>Residences</em></h1>
           <p class="caption-sub">80 hectares. 12 buildings. West Africa's most ambitious ecological masterplan.</p>
-          <a href="#projects" class="caption-btn"> VIEW MORE PROJECTS </a>
+          <a href="#projects" class="caption-btn">View More Projects</a>
         </div>
       </div>
     </div>
@@ -638,7 +649,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <div><span class="ib-stat-v">38</span><span class="ib-stat-l">Projects</span></div>
       <div><span class="ib-stat-v">4</span><span class="ib-stat-l">Countries</span></div>
       <div><span class="ib-stat-v">Net 0</span><span class="ib-stat-l">Carbon target</span></div>
-    
     </div>
   </div>
 </div>
@@ -649,44 +659,44 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <div class="section-eyebrow">Featured Projects</div>
       <h2 class="section-title">Buildings that<br>define <em>skylines.</em></h2>
     </div>
-    <a href="#" class="view-all rv"><!-- TODO: link to your full projects page or Instagram profile --> MORE ON INSTAGRAM </a>
+    <a href="#" class="view-all rv"><!-- TODO: link to your full projects page or Instagram profile -->More on Instagram</a>
   </div>
   <div class="proj-grid-primary">
     <!-- TODO: replace each href="#" with the URL for that project (Instagram post, portfolio page, etc.) -->
     <a class="proj-card" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-1.jpg" alt="The Meridian Tower"></div>
+      <div class="img-slot"><img src="images/proj-1.jpg" alt="Africana Square" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
-      <div class="proj-info"><div class="proj-type">Mixed-Use · Dar es Salaam</div><div class="proj-name"> Africana Square </div><div class="proj-loc">85 Floors · 320m · LEED Platinum · 2025</div></div>
+      <div class="proj-info"><div class="proj-type">Mixed-Use · Dar es Salaam</div><div class="proj-name">Africana Square</div><div class="proj-loc">85 Floors · 320m · LEED Platinum · 2025</div></div>
     </a>
     <a class="proj-card" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-2.jpg" alt="Savanna Office Park"></div>
+      <div class="img-slot"><img src="images/proj-2.jpg" alt="Sinza Apartments" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
-      <div class="proj-info"><div class="proj-type">Commercial Campus · Dar Es Salaam </div><div class="proj-name"> Sinza Appartments </div><div class="proj-loc">12 Hectares · 100% Renewable · 2022</div></div>
+      <div class="proj-info"><div class="proj-type">Commercial Residence · Dar es Salaam</div><div class="proj-name">Sinza Apartments</div><div class="proj-loc">12 Hectares · 100% Renewable · 2022</div></div>
     </a>
     <a class="proj-card" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-3.jpg" alt="Aso Cultural Dome"></div>
+      <div class="img-slot"><img src="images/proj-3.jpg" alt="Arusha Tech Centre" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
-      <div class="proj-info"><div class="proj-type">Cultural Hub · Arusha </div><div class="proj-name"> Arusha Tech Centre </div><div class="proj-loc">Parametric Shell · Rammed Earth · 2024</div></div>
+      <div class="proj-info"><div class="proj-type">Cultural Hub · Arusha</div><div class="proj-name">Arusha Tech Centre</div><div class="proj-loc">Parametric Shell · Rammed Earth · 2024</div></div>
     </a>
     <a class="proj-card" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-4.jpg" alt="Green Quarter Lagos"></div>
+      <div class="img-slot"><img src="images/proj-4.jpg" alt="Mbweni Residences" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
-      <div class="proj-info"><div class="proj-type">Masterplan ·Dar Es Salaam </div><div class="proj-name"> Mbweni Residences </div><div class="proj-loc">80 Hectares · 12 Buildings · 2026</div></div>
+      <div class="proj-info"><div class="proj-type">Masterplan · Dar es Salaam</div><div class="proj-name">Mbweni Residences</div><div class="proj-loc">80 Hectares · 12 Buildings · 2026</div></div>
     </a>
   </div>
   <div class="proj-grid-secondary">
     <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-5.jpg" alt="Canopy Stack"></div>
+      <div class="img-slot"><img src="images/proj-5.jpg" alt="Farm House" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
-      <div class="proj-info"><div class="proj-type">Residential · Geita </div><div class="proj-name"> Farm House </div><div class="proj-loc">Modular · Living Terraces · 2023</div></div>
+      <div class="proj-info"><div class="proj-type">Residential · Geita</div><div class="proj-name">Farm House</div><div class="proj-loc">Modular · Living Terraces · 2023</div></div>
     </a>
     <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-6.jpg" alt="Volta Arts Centre"></div>
+      <div class="img-slot"><img src="images/proj-6.jpg" alt="Magufuli Arts Centre" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
-      <div class="proj-info"><div class="proj-type">Cultural · Mwanza </div><div class="proj-name"> Magufuli Arts Centre</div><div class="proj-loc">Solar Louvers · Bioclimatic · 2023</div></div>
+      <div class="proj-info"><div class="proj-type">Cultural · Mwanza</div><div class="proj-name">Magufuli Arts Centre</div><div class="proj-loc">Solar Louvers · Bioclimatic · 2023</div></div>
     </a>
     <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
-      <div class="img-slot"><img src="images/proj-7.jpg" alt="Bahari Tower"></div>
+      <div class="img-slot"><img src="images/proj-7.jpg" alt="Bahari Tower" loading="lazy" decoding="async"></div>
       <div class="proj-arrow"></div>
       <div class="proj-info"><div class="proj-type">Residential · Dar es Salaam</div><div class="proj-name">Bahari Tower</div><div class="proj-loc">Vertical Garden · Geothermal · 2023</div></div>
     </a>
@@ -726,19 +736,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
     <div class="insights-grid">
       <!-- Set href="#" to the URL where people can read the full article -->
       <a class="insight-card rv" href="#" target="_blank" rel="noopener">
-        <div class="insight-img"><div class="img-slot"><img src="images/insight-1.jpg" alt="Insight 1"></div></div>
+        <div class="insight-img"><div class="img-slot"><img src="images/insight-1.jpg" alt="Insight 1" loading="lazy" decoding="async"></div></div>
         <div class="insight-cat">Sustainability</div>
         <div class="insight-title">Why Africa's Next Cities Must Be Built Ecologically From the Ground Up</div>
         <div class="insight-date">April 2025</div>
       </a>
       <a class="insight-card rv d1" href="#" target="_blank" rel="noopener">
-        <div class="insight-img"><div class="img-slot"><img src="images/insight-2.jpg" alt="Insight 2"></div></div>
+        <div class="insight-img"><div class="img-slot"><img src="images/insight-2.jpg" alt="Insight 2" loading="lazy" decoding="async"></div></div>
         <div class="insight-cat">Research</div>
         <div class="insight-title">Passive Cooling in Tropical Climates: How We Eliminated Air Conditioning From Our Last Three Projects</div>
         <div class="insight-date">January 2025</div>
       </a>
       <a class="insight-card rv d2" href="#" target="_blank" rel="noopener">
-        <div class="insight-img"><div class="img-slot"><img src="images/insight-3.jpg" alt="Insight 3"></div></div>
+        <div class="insight-img"><div class="img-slot"><img src="images/insight-3.jpg" alt="Insight 3" loading="lazy" decoding="async"></div></div>
         <div class="insight-cat">Design</div>
         <div class="insight-title">The Living Facade: How We Integrate 18,000m² of Vertical Garden Across Our Portfolio</div>
         <div class="insight-date">October 2024</div>
@@ -759,11 +769,11 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 <section class="spotlight" id="studio">
   <div class="spotlight-inner">
     <div class="spot-img">
-      <div class="img-slot"><img src="images/spot.jpg" alt="Elegant Designs Studio"></div>
+      <div class="img-slot"><img src="images/spot.jpg" alt="Elegant Designs Studio" loading="lazy" decoding="async"></div>
       <div class="spot-label">Spotlight</div>
     </div>
     <div class="spot-text">
-      <div class="spot-eyebrow">The Studio</div>
+      <div class="spot-eyebrow">TOP RATED TALENT </div>
       <h2 class="spot-h">24 people.<br><em>One standard.</em><br>Net zero, always.</h2>
       <div class="spot-specs">
         <div><span class="spec-v">2019</span><span class="spec-k">Founded, Dar es Salaam</span></div>
@@ -840,7 +850,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
     <div>
       <span class="footer-brand">
         <img class="footer-logo-img" src="images/logo.png" alt="Elegant Designs"
-             onerror="this.classList.add('logo-error');this.style.display='none'">
+             loading="lazy" decoding="async" onerror="this.classList.add('logo-error');this.style.display='none'">
         <span class="footer-brand-fallback">Elegant<span class="dot">.</span>Designs</span>
       </span>
       <p class="footer-tagline">Ecological architecture and construction for Africa's future cities. Est. Dar es Salaam, 2019.</p>
@@ -1205,7 +1215,7 @@ function runIntroSequence() {
     wrap.appendChild(el); wrap.appendChild(ul); introText.appendChild(wrap);
     lineEls.push(el); underlines.push(ul);
   });
-  const cursor = document.createElement('span'); cursor.className = 'tw-cursor';
+  const cursor = document.createElement('span'); cursor.className = 'tw-cursor'; cursor.textContent = '>';
 
   function typeLine(lineIdx, charIdx, onDone) {
     const { text } = lines[lineIdx];
