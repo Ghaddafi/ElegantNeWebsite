@@ -6,11 +6,9 @@
 <meta name="theme-color" content="#111111">
 <title>Elegant Designs — Architecture & Construction</title>
 
-<!-- Favicon — uses same logo.png file -->
-<link rel="icon" type="image/png" href="images/logo.png">
-<link rel="apple-touch-icon" href="images/logo.png">
+<link rel="icon" type="image/png" href="images/favi.png">
+<link rel="apple-touch-icon" href="images/favi.png">
 
-<!-- CRITICAL: preload above-the-fold images so they start fetching immediately -->
 <link rel="preload" as="image" href="images/hero-0.jpg" fetchpriority="high">
 <link rel="preload" as="image" href="images/intro-bg.jpg" fetchpriority="high">
 <link rel="preload" as="image" href="images/hero-1.jpg">
@@ -39,12 +37,10 @@ img{display:block;width:100%;height:100%;object-fit:cover;object-position:center
 .img-slot:hover img{transform:scale(1.05);}
 
 /* ── HEADER ── */
-header{position:fixed;top:0;left:0;right:0;z-index:500;transition:background .4s,box-shadow .4s;}
-header.solid{background:#fff;box-shadow:0 1px 0 var(--border);}
+header{position:fixed;top:0;left:0;right:0;z-index:500;background:var(--black);box-shadow:0 1px 0 rgba(255,255,255,.08);}
 nav{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:80px;}
 .nav-logo{display:flex;align-items:center;height:80px;padding:8px 0;flex-shrink:0;}
 
-/* Single logo image — always visible, colour controlled by CSS filter only */
 .nav-logo-img{
   display:block;
   height:60px;
@@ -52,26 +48,19 @@ nav{max-width:1600px;margin:0 auto;display:flex;align-items:center;justify-conte
   max-width:280px;
   object-fit:contain;
   object-position:left center;
-  /* White version for transparent/dark header */
-  filter:brightness(0) invert(1);
-  transition:filter .4s ease;
-}
-/* Natural colour once header goes solid white */
-header.solid .nav-logo-img{
   filter:none;
+  transition:opacity .3s ease;
 }
-/* Fallback text — only shown if image fails to load */
+.nav-logo-img:hover{opacity:.85;}
 .nav-logo-fallback{
   font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:700;
-  letter-spacing:.02em;color:#fff;transition:color .3s;white-space:nowrap;
+  letter-spacing:.02em;color:#fff;white-space:nowrap;
   display:none;
 }
 .nav-logo-img[style*="display:none"] ~ .nav-logo-fallback,
 .nav-logo-img.logo-error ~ .nav-logo-fallback{display:block;}
-header.solid .nav-logo-fallback{color:var(--black);}
 .nav-logo-fallback .dot{color:var(--gold);}
 
-/* Footer logo */
 .footer-logo-img{
   display:block;
   height:56px;
@@ -79,7 +68,6 @@ header.solid .nav-logo-fallback{color:var(--black);}
   max-width:240px;
   object-fit:contain;
   object-position:left;
-  /* Invert to white on dark footer background */
   filter:brightness(0) invert(1);
   opacity:.85;
   margin-bottom:1.2rem;
@@ -95,7 +83,6 @@ header.solid .nav-logo-fallback{color:var(--black);}
 /* Mobile hamburger */
 .nav-hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;z-index:600;}
 .nav-hamburger span{display:block;width:22px;height:1.5px;background:#fff;transition:all .3s;}
-header.solid .nav-hamburger span{background:var(--black);}
 .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
@@ -106,15 +93,11 @@ header.solid .nav-hamburger span{background:var(--black);}
 .nav-mobile-drawer .nav-mobile-contact{margin-top:2rem;font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border:1.5px solid var(--gold);padding:.75rem 2rem;}
 
 .nav-center{display:flex;gap:0;list-style:none;}
-.nav-center a{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.8);padding:.5rem 1.1rem;transition:color .2s;white-space:nowrap;}
+.nav-center a{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.75);padding:.5rem 1.1rem;transition:color .2s;white-space:nowrap;}
 .nav-center a:hover{color:var(--gold);}
-header.solid .nav-center a{color:var(--off-black);}
-header.solid .nav-center a:hover{color:var(--gold);}
 .nav-right{display:flex;align-items:center;gap:1.5rem;}
-.nav-contact{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid rgba(255,255,255,.6);color:#fff;padding:.5rem 1.4rem;transition:all .25s;white-space:nowrap;}
+.nav-contact{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1.5px solid rgba(255,255,255,.55);color:#fff;padding:.5rem 1.4rem;transition:all .25s;white-space:nowrap;}
 .nav-contact:hover{background:#fff;color:var(--black);}
-header.solid .nav-contact{border-color:var(--black);color:var(--black);}
-header.solid .nav-contact:hover{background:var(--black);color:#fff;}
 
 /* ── HERO ── */
 .hero{position:relative;width:100%;height:100svh;min-height:580px;overflow:hidden;background:var(--black);}
@@ -205,9 +188,9 @@ header.solid .nav-contact:hover{background:var(--black);color:#fff;}
 .proj-name{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-weight:400;color:#fff;line-height:1.15;margin-bottom:.4rem;}
 .proj-card:nth-child(1) .proj-name,.proj-card:nth-child(2) .proj-name{font-size:clamp(1.4rem,2.5vw,2rem);}
 .proj-loc{font-family:'Barlow',sans-serif;font-size:.8rem;font-weight:300;color:rgba(255,255,255,.55);}
-.proj-arrow{position:absolute;top:1.5rem;right:1.5rem;width:auto;height:36px;padding:0 1rem;border:1.5px solid rgba(255,255,255,.45);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.7rem;font-family:'Barlow',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;gap:.4rem;opacity:0;transform:translateY(-6px);transition:all .3s;z-index:6;white-space:nowrap;}
-.proj-arrow::after{content:'↗';}
-.proj-card:hover .proj-arrow{opacity:1;transform:translateY(0);}
+.proj-arrow{position:absolute;top:1.5rem;right:1.5rem;width:auto;height:36px;padding:0 .9rem;border:1.5px solid rgba(255,255,255,.55);border-radius:18px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:.68rem;font-family:'Barlow',sans-serif;font-weight:600;letter-spacing:.08em;text-transform:uppercase;gap:.5rem;opacity:0;transform:translateY(-6px);transition:all .3s;z-index:6;white-space:nowrap;background:rgba(0,0,0,.25);backdrop-filter:blur(4px);}
+.proj-card:hover .proj-arrow,.proj-card-sm:hover .proj-arrow{opacity:1;transform:translateY(0);}
+.proj-arrow svg{width:13px;height:13px;flex-shrink:0;opacity:.9;}
 .proj-grid-secondary{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-top:2px solid var(--border);}
 .proj-card-sm{position:relative;overflow:hidden;height:360px;background:var(--light);}
 .proj-card-sm .img-slot{position:absolute;inset:0;}
@@ -243,15 +226,37 @@ header.solid .nav-contact:hover{background:var(--black);color:#fff;}
 .insights-inner{max-width:1600px;margin:0 auto;}
 .insights-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);gap:1rem;}
 .insights-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2.5rem;}
-.insight-card{transition:transform .35s ease;}
+.insight-card{transition:transform .35s ease;background:#fff;border:1px solid var(--border);}
 .insight-card:hover{transform:translateY(-4px);}
-.insight-img{width:100%;aspect-ratio:3/2;overflow:hidden;margin-bottom:1.4rem;background:var(--light);position:relative;}
-.insight-img .img-slot{position:absolute;inset:0;}
+.insight-img{
+  width:100%;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  margin-bottom:0;
+  background:var(--off-black);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.insight-img img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+  transition:transform .6s cubic-bezier(.22,.61,.36,1);
+}
+.insight-card:hover .insight-img img{transform:scale(1.03);}
+.insight-img .img-slot{position:absolute;inset:0;background:transparent;}
+.insight-body{padding:1.4rem 1.5rem 1.6rem;}
 .insight-cat{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.55rem;}
-.insight-title{font-family:'Libre Baskerville',serif;font-size:1.1rem;font-weight:400;line-height:1.42;color:var(--black);margin-bottom:.6rem;transition:color .2s;}
+.insight-title{font-family:'Libre Baskerville',serif;font-size:1.05rem;font-weight:400;line-height:1.48;color:var(--black);margin-bottom:.8rem;transition:color .2s;}
 a.insight-card{display:block;text-decoration:none;color:inherit;}
 .insight-card:hover .insight-title{color:var(--gold);}
-.insight-date{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:300;color:var(--mid);}
+.insight-date{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);}
+.insight-date::after{content:' →';font-size:.75em;}
 
 /* ── METRICS ── */
 .metrics{background:var(--black);padding:5rem 1.5rem;position:relative;overflow:hidden;}
@@ -316,17 +321,13 @@ a.insight-card{display:block;text-decoration:none;color:inherit;}
 .fi:focus,.fsel:focus,.fta:focus{border-bottom-color:var(--gold);border-left-color:var(--gold);background:rgba(255,255,255,.07);}
 .fi::placeholder,.fta::placeholder{color:rgba(255,255,255,.18);}
 .fta{resize:vertical;min-height:110px;}
-.fsub{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--black);border:none;padding:1rem 2.5rem;cursor:pointer;align-self:flex-start;transition:all .3s;min-height:48px;}
-.fsub:hover{background:var(--gold2);transform:translateY(-2px);}
-
-/* ── PROJECT CARD LINKS ── */
-a.proj-card,a.proj-card-sm{display:block;text-decoration:none;}
-
-/* ── WHATSAPP BUTTON ── */
 .fsub-wa{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:#25D366;color:#fff;border:none;padding:1rem 2.5rem;cursor:pointer;align-self:flex-start;transition:all .3s;min-height:48px;display:inline-flex;align-items:center;gap:.7rem;}
 .fsub-wa:hover{background:#1ebe5d;transform:translateY(-2px);}
 .fsub-wa svg{flex-shrink:0;}
 .form-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;}
+
+/* ── PROJECT CARD LINKS ── */
+a.proj-card,a.proj-card-sm{display:block;text-decoration:none;}
 
 /* ── FOOTER ── */
 footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
@@ -350,103 +351,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 .rv{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease;}
 .rv.in{opacity:1;transform:none;}
 .rv.d1{transition-delay:.1s;}.rv.d2{transition-delay:.2s;}.rv.d3{transition-delay:.3s;}.rv.d4{transition-delay:.4s;}
-
-/* ══════════════════════════════
-   ADMIN IMAGE MANAGER
-   Hidden — unlock via ?admin or press A+D+M
-══════════════════════════════ */
-#admin-lock{
-  position:fixed;inset:0;z-index:9000;
-  background:rgba(0,0,0,.96);backdrop-filter:blur(12px);
-  display:flex;align-items:center;justify-content:center;
-  opacity:0;pointer-events:none;transition:opacity .3s;
-}
-#admin-lock.open{opacity:1;pointer-events:all;}
-#admin-lock-box{
-  background:#111;border:1px solid rgba(184,150,46,.3);
-  padding:2.5rem;width:100%;max-width:380px;text-align:center;
-}
-#admin-lock-box h2{font-family:'Libre Baskerville',serif;font-size:1.4rem;font-weight:400;color:#fff;margin-bottom:.4rem;}
-#admin-lock-box h2 em{font-style:italic;color:var(--gold);}
-#admin-lock-box p{font-family:'Barlow',sans-serif;font-size:.8rem;color:rgba(255,255,255,.35);margin-bottom:1.5rem;letter-spacing:.05em;}
-#admin-pw-input{
-  width:100%;background:rgba(255,255,255,.05);border:none;
-  border-bottom:1.5px solid rgba(255,255,255,.2);color:#fff;
-  font-family:'Barlow',sans-serif;font-size:1.1rem;letter-spacing:.25em;
-  padding:.8rem 1rem;text-align:center;outline:none;margin-bottom:1rem;
-  transition:border-color .2s;
-}
-#admin-pw-input:focus{border-bottom-color:var(--gold);}
-#admin-pw-input.shake{animation:shake .4s ease;}
-@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
-#admin-pw-btn{
-  width:100%;font-family:'Barlow',sans-serif;font-size:.75rem;font-weight:600;
-  letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--black);
-  border:none;padding:1rem;cursor:pointer;transition:background .2s;min-height:48px;
-}
-#admin-pw-btn:hover{background:var(--gold2);}
-#admin-pw-err{font-family:'Barlow',sans-serif;font-size:.75rem;color:#e05555;margin-top:.7rem;min-height:1.2rem;}
-#admin-pw-cancel{
-  margin-top:.8rem;font-family:'Barlow',sans-serif;font-size:.72rem;
-  color:rgba(255,255,255,.2);background:none;border:none;cursor:pointer;
-  transition:color .2s;width:100%;padding:.4rem;
-}
-#admin-pw-cancel:hover{color:rgba(255,255,255,.5);}
-
-/* Admin panel (shown after auth) */
-#img-mgr-panel{
-  position:fixed;inset:0;z-index:8000;
-  background:rgba(0,0,0,.88);backdrop-filter:blur(8px);
-  display:none;overflow-y:auto;-webkit-overflow-scrolling:touch;
-}
-#img-mgr-panel.open{display:block;}
-#img-mgr-inner{max-width:960px;margin:2rem auto;background:#fff;overflow:hidden;}
-#img-mgr-header{background:var(--black);padding:1.5rem;display:flex;align-items:center;justify-content:space-between;}
-#img-mgr-header h2{font-family:'Libre Baskerville',serif;font-size:1.2rem;font-weight:400;color:#fff;}
-#img-mgr-header h2 em{font-style:italic;color:var(--gold);}
-.mgr-admin-badge{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;background:var(--gold);color:var(--black);padding:.25rem .7rem;margin-left:.8rem;vertical-align:middle;}
-#img-mgr-close{background:none;border:1.5px solid rgba(255,255,255,.4);color:#fff;width:44px;height:44px;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;}
-#img-mgr-close:hover{border-color:#fff;background:rgba(255,255,255,.1);}
-.mgr-notice{background:#FDF6E3;border-bottom:1px solid #E8D9A0;padding:1rem 1.5rem;font-family:'Barlow',sans-serif;font-size:.82rem;line-height:1.6;color:#6B5800;}
-.mgr-notice strong{color:#4A3D00;}
-#img-mgr-slots{padding:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
-.mgr-slot{border:1.5px solid var(--border);overflow:hidden;cursor:pointer;transition:border-color .25s;position:relative;}
-.mgr-slot:hover{border-color:var(--gold);}
-.mgr-slot-preview{width:100%;aspect-ratio:16/9;background:#F2F2F0;position:relative;overflow:hidden;}
-.mgr-slot-preview img{width:100%;height:100%;object-fit:cover;}
-.mgr-slot-preview .mgr-placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;background:repeating-linear-gradient(45deg,rgba(184,150,46,.06),rgba(184,150,46,.06) 1px,transparent 1px,transparent 22px);}
-.mgr-placeholder-icon{font-size:2rem;opacity:.3;}
-.mgr-placeholder-text{font-family:'Barlow Condensed',sans-serif;font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:#888;}
-.mgr-slot-info{padding:.8rem 1rem;background:#fff;border-top:1px solid var(--border);}
-.mgr-slot-name{font-family:'Barlow Condensed',sans-serif;font-size:.68rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--black);margin-bottom:.2rem;}
-.mgr-slot-desc{font-family:'Barlow',sans-serif;font-size:.72rem;color:#888;}
-.mgr-upload-overlay{position:absolute;inset:0;background:rgba(184,150,46,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;opacity:0;transition:opacity .25s;pointer-events:none;z-index:5;}
-.mgr-slot:hover .mgr-upload-overlay{opacity:1;}
-.mgr-upload-overlay span{font-family:'Barlow',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--black);}
-.mgr-status{font-family:'Barlow',sans-serif;font-size:.75rem;color:var(--mid);padding:.5rem 1rem;background:#f9f9f7;border-top:1px solid var(--border);min-height:1.8rem;}
-.mgr-status.ok{color:#2D6A2D;background:#F0FFF0;}
-.mgr-status.err{color:#8B0000;background:#FFF0F0;}
-.mgr-status.busy{color:var(--gold);}
-#img-mgr-footer{padding:1.2rem 1.5rem;background:var(--off-white);border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
-.mgr-footer-note{font-family:'Barlow',sans-serif;font-size:.78rem;color:#888;}
-#mgr-export-btn,#mgr-clear-btn{font-family:'Barlow',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.7rem 1.2rem;cursor:pointer;border:none;transition:all .25s;min-height:44px;}
-#mgr-export-btn{background:var(--black);color:#fff;}
-#mgr-export-btn:hover{background:var(--gold);color:var(--black);}
-#mgr-clear-btn{background:transparent;color:#888;border:1px solid var(--border);}
-#mgr-clear-btn:hover{border-color:#c00;color:#c00;}
-.mgr-progress{height:3px;background:var(--border);}
-.mgr-progress-bar{height:100%;background:var(--gold);width:0;transition:width .3s;}
-.mgr-slot-logo{grid-column:1 / -1;}
-.mgr-logo-preview{display:grid;grid-template-columns:1fr 1fr;height:110px;position:relative;overflow:hidden;cursor:pointer;}
-.mgr-logo-dark,.mgr-logo-light{display:flex;align-items:center;justify-content:center;padding:1.5rem 2rem;position:relative;}
-.mgr-logo-dark{background:#111;}
-.mgr-logo-light{background:#F8F8F6;border-left:1px solid var(--border);}
-.mgr-logo-dark img,.mgr-logo-light img{max-height:48px;max-width:100%;width:auto;height:auto;object-fit:contain;}
-.mgr-logo-dark img{filter:brightness(0) invert(1);}
-.mgr-logo-hint{font-family:'Barlow Condensed',sans-serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;position:absolute;bottom:.7rem;left:0;right:0;text-align:center;}
-.mgr-logo-dark .mgr-logo-hint{color:rgba(255,255,255,.25);}
-.mgr-logo-light .mgr-logo-hint{color:rgba(0,0,0,.25);}
-.mgr-slot-logo .mgr-upload-overlay{position:absolute;inset:0;z-index:5;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:1200px){
@@ -473,7 +377,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   .process-steps::before{display:none;}
   .contact-inner{grid-template-columns:1fr;gap:3.5rem;}
   .footer-main{grid-template-columns:1fr 1fr;gap:2rem;}
-  #img-mgr-slots{grid-template-columns:1fr;}
 }
 @media(max-width:768px){
   nav{padding:0 1.25rem;height:64px;}
@@ -501,8 +404,9 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   .pillar{padding:2.8rem 1.5rem;border-right:none;border-bottom:1px solid var(--border);border-top:3px solid transparent;}
   .pillar:last-child{border-bottom:none;}
   .insights{padding:4rem 1.25rem;}
-  .insights-grid{grid-template-columns:1fr;gap:2.5rem;}
+  .insights-grid{grid-template-columns:1fr;gap:1.5rem;}
   .insight-card:hover{transform:none;}
+  .insight-img{aspect-ratio:4/3;}
   .metrics{padding:0;}
   .metrics::before{display:none;}
   .metrics-inner{grid-template-columns:1fr 1fr;}
@@ -524,10 +428,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   .footer-main{padding:3rem 1.25rem 2rem;grid-template-columns:1fr 1fr;gap:2rem 1.5rem;}
   .footer-main > div:first-child{grid-column:1 / -1;}
   .footer-bottom{padding:1.2rem 1.25rem 2rem;flex-direction:column;align-items:flex-start;}
-  #admin-lock-box{margin:1rem;padding:2rem 1.5rem;}
-  #img-mgr-inner{margin:0;min-height:100vh;}
-  #img-mgr-footer{flex-direction:column;align-items:stretch;}
-  #mgr-export-btn,#mgr-clear-btn{width:100%;justify-content:center;display:flex;}
 }
 @media(max-width:480px){
   .proj-card:nth-child(n){height:260px;}
@@ -546,7 +446,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
 <header id="header">
   <nav>
     <a href="#" class="nav-logo" aria-label="Elegant Designs — back to top">
-      <!-- Replace images/logo.png with your logo file (PNG with transparency recommended) -->
       <img class="nav-logo-img" id="nav-logo-img" src="images/logo.png" alt="Elegant Designs"
            decoding="async" onerror="this.classList.add('logo-error');this.style.display='none'">
       <span class="nav-logo-fallback">Elegant<span class="dot">.</span>Designs</span>
@@ -556,7 +455,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <li><a href="#approach">Approach</a></li>
       <li><a href="#insights">Insights</a></li>
       <li><a href="#studio">Studio</a></li>
-      <li><a href="#contact">Careers</a></li>
     </ul>
     <div class="nav-right">
       <a href="#contact" class="nav-contact">Contact Us</a>
@@ -572,7 +470,6 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   <a href="#approach" class="nav-drawer-link">Approach</a>
   <a href="#insights" class="nav-drawer-link">Insights</a>
   <a href="#studio" class="nav-drawer-link">Studio</a>
-  <a href="#contact" class="nav-drawer-link">Careers</a>
   <a href="#contact" class="nav-mobile-contact nav-drawer-link">Contact Us</a>
 </div>
 
@@ -610,19 +507,19 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
           <div class="caption-tag">Ecological Architecture · Dar es Salaam</div>
           <h1 class="caption-h">Msasani<br>Beach, <em>Villa</em></h1>
           <p class="caption-sub">320 metres. 85 floors. Net zero. A new landmark for East Africa's skyline.</p>
-          <a href="#projects" class="caption-btn">View More Projects</a>
+          <a href="https://www.instagram.com/elegant.designstz/" class="caption-btn" target="_blank" rel="noopener">View on Instagram</a>
         </div>
         <div class="caption">
           <div class="caption-tag">Commercial Residence · Dar es Salaam</div>
           <h1 class="caption-h">Sinza<br><em>Apartments</em></h1>
           <p class="caption-sub">Six towers. Six sky bridges. 12 hectares of net-zero commercial space.</p>
-          <a href="#projects" class="caption-btn">View More Projects</a>
+          <a href="https://www.instagram.com/elegant.designstz/" class="caption-btn" target="_blank" rel="noopener">View on Instagram</a>
         </div>
         <div class="caption">
           <div class="caption-tag">Masterplan · Dar es Salaam</div>
           <h1 class="caption-h">Mbweni<br><em>Residences</em></h1>
           <p class="caption-sub">80 hectares. 12 buildings. West Africa's most ambitious ecological masterplan.</p>
-          <a href="#projects" class="caption-btn">View More Projects</a>
+          <a href="https://www.instagram.com/elegant.designstz/" class="caption-btn" target="_blank" rel="noopener">View on Instagram</a>
         </div>
       </div>
     </div>
@@ -659,45 +556,44 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <div class="section-eyebrow">Featured Projects</div>
       <h2 class="section-title">Buildings that<br>define <em>skylines.</em></h2>
     </div>
-    <a href="#" class="view-all rv"><!-- TODO: link to your full projects page or Instagram profile -->More on Instagram</a>
+    <a href="https://www.instagram.com/elegant.designstz/" class="view-all rv" target="_blank" rel="noopener">Follow us on Instagram</a>
   </div>
   <div class="proj-grid-primary">
-    <!-- TODO: replace each href="#" with the URL for that project (Instagram post, portfolio page, etc.) -->
-    <a class="proj-card" href="#" target="_blank" rel="noopener">
+    <a class="proj-card" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-1.jpg" alt="Africana Square" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Mixed-Use · Dar es Salaam</div><div class="proj-name">Africana Square</div><div class="proj-loc">85 Floors · 320m · LEED Platinum · 2025</div></div>
     </a>
-    <a class="proj-card" href="#" target="_blank" rel="noopener">
+    <a class="proj-card" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-2.jpg" alt="Sinza Apartments" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Commercial Residence · Dar es Salaam</div><div class="proj-name">Sinza Apartments</div><div class="proj-loc">12 Hectares · 100% Renewable · 2022</div></div>
     </a>
-    <a class="proj-card" href="#" target="_blank" rel="noopener">
+    <a class="proj-card" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-3.jpg" alt="Arusha Tech Centre" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Cultural Hub · Arusha</div><div class="proj-name">Arusha Tech Centre</div><div class="proj-loc">Parametric Shell · Rammed Earth · 2024</div></div>
     </a>
-    <a class="proj-card" href="#" target="_blank" rel="noopener">
+    <a class="proj-card" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-4.jpg" alt="Mbweni Residences" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Masterplan · Dar es Salaam</div><div class="proj-name">Mbweni Residences</div><div class="proj-loc">80 Hectares · 12 Buildings · 2026</div></div>
     </a>
   </div>
   <div class="proj-grid-secondary">
-    <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
+    <a class="proj-card-sm" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-5.jpg" alt="Farm House" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Residential · Geita</div><div class="proj-name">Farm House</div><div class="proj-loc">Modular · Living Terraces · 2023</div></div>
     </a>
-    <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
+    <a class="proj-card-sm" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-6.jpg" alt="Magufuli Arts Centre" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Cultural · Mwanza</div><div class="proj-name">Magufuli Arts Centre</div><div class="proj-loc">Solar Louvers · Bioclimatic · 2023</div></div>
     </a>
-    <a class="proj-card-sm" href="#" target="_blank" rel="noopener">
+    <a class="proj-card-sm" href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">
       <div class="img-slot"><img src="images/proj-7.jpg" alt="Bahari Tower" loading="lazy" decoding="async"></div>
-      <div class="proj-arrow"></div>
+      <div class="proj-arrow"><svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>Instagram</div>
       <div class="proj-info"><div class="proj-type">Residential · Dar es Salaam</div><div class="proj-name">Bahari Tower</div><div class="proj-loc">Vertical Garden · Geothermal · 2023</div></div>
     </a>
   </div>
@@ -731,27 +627,38 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
   <div class="insights-inner">
     <div class="insights-header rv">
       <div><div class="section-eyebrow">Insights & Ideas</div><h2 class="section-title">Thinking about<br>the <em>future.</em></h2></div>
-      <a href="#" class="view-all"><!-- TODO: link to your blog or articles page -->View All</a>
+      <a href="https://www.instagram.com/elegant.designstz/" class="view-all" target="_blank" rel="noopener">More on Instagram</a>
     </div>
     <div class="insights-grid">
-      <!-- Set href="#" to the URL where people can read the full article -->
-      <a class="insight-card rv" href="#" target="_blank" rel="noopener">
-        <div class="insight-img"><div class="img-slot"><img src="images/insight-1.jpg" alt="Insight 1" loading="lazy" decoding="async"></div></div>
-        <div class="insight-cat">Sustainability</div>
-        <div class="insight-title">Why Africa's Next Cities Must Be Built Ecologically From the Ground Up</div>
-        <div class="insight-date">April 2025</div>
+      <a class="insight-card rv" href="https://www.instagram.com/p/DOxd-svCFQu/" target="_blank" rel="noopener">
+        <div class="insight-img">
+          <img src="images/1.jpeg" alt="Why 70% of building projects in Tanzania go over budget" loading="lazy" decoding="async">
+        </div>
+        <div class="insight-body">
+          <div class="insight-cat">Project Management</div>
+          <div class="insight-title">Why 70% of Building Projects in Tanzania Go Over Budget</div>
+          <div class="insight-date">View on Instagram</div>
+        </div>
       </a>
-      <a class="insight-card rv d1" href="#" target="_blank" rel="noopener">
-        <div class="insight-img"><div class="img-slot"><img src="images/insight-2.jpg" alt="Insight 2" loading="lazy" decoding="async"></div></div>
-        <div class="insight-cat">Research</div>
-        <div class="insight-title">Passive Cooling in Tropical Climates: How We Eliminated Air Conditioning From Our Last Three Projects</div>
-        <div class="insight-date">January 2025</div>
+      <a class="insight-card rv d1" href="https://www.instagram.com/p/DOuhSpRiKFV/" target="_blank" rel="noopener">
+        <div class="insight-img">
+          <img src="images/2.jpeg" alt="Tanzania VS Kenya, which country is better for Real Estate Investment" loading="lazy" decoding="async">
+        </div>
+        <div class="insight-body">
+          <div class="insight-cat">Real Estate</div>
+          <div class="insight-title">Tanzania vs Kenya: Which Country Is Better for Real Estate Investment?</div>
+          <div class="insight-date">View on Instagram</div>
+        </div>
       </a>
-      <a class="insight-card rv d2" href="#" target="_blank" rel="noopener">
-        <div class="insight-img"><div class="img-slot"><img src="images/insight-3.jpg" alt="Insight 3" loading="lazy" decoding="async"></div></div>
-        <div class="insight-cat">Design</div>
-        <div class="insight-title">The Living Facade: How We Integrate 18,000m² of Vertical Garden Across Our Portfolio</div>
-        <div class="insight-date">October 2024</div>
+      <a class="insight-card rv d2" href="https://www.instagram.com/p/DOQLfG2DCDa/" target="_blank" rel="noopener">
+        <div class="insight-img">
+          <img src="images/3.jpg" alt="Residential Unit VS Commercial Unit, which pays more" loading="lazy" decoding="async">
+        </div>
+        <div class="insight-body">
+          <div class="insight-cat">Investment</div>
+          <div class="insight-title">Residential Unit vs Commercial Unit: Which Pays More?</div>
+          <div class="insight-date">View on Instagram</div>
+        </div>
       </a>
     </div>
   </div>
@@ -773,7 +680,7 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <div class="spot-label">Spotlight</div>
     </div>
     <div class="spot-text">
-      <div class="spot-eyebrow">TOP RATED TALENT </div>
+      <div class="spot-eyebrow">The Studio</div>
       <h2 class="spot-h">24 people.<br><em>One standard.</em><br>Net zero, always.</h2>
       <div class="spot-specs">
         <div><span class="spec-v">2019</span><span class="spec-k">Founded, Dar es Salaam</span></div>
@@ -810,10 +717,10 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       <h2 class="ct-h rv">Let's build<br>something<br><em>that lasts.</em></h2>
       <p class="ct-sub rv d1">We take on 6–8 projects per year, chosen with care. If you have a site, a brief, or an idea that won't leave you alone — we want to hear it.</p>
       <div class="rv d2">
-        <div class="ct-detail-item"><span class="ct-detail-label">Email</span><span class="ct-detail-val">hello@elegantdesigns.com</span></div>
-        <div class="ct-detail-item"><span class="ct-detail-label">Phone</span><span class="ct-detail-val">+255 000 000 000</span></div>
+        <div class="ct-detail-item"><span class="ct-detail-label">Email</span><span class="ct-detail-val">designers@elegant.africa</span></div>
+        <div class="ct-detail-item"><span class="ct-detail-label">Phone</span><span class="ct-detail-val"> +255 787 165 837</span></div>
         <div class="ct-detail-item"><span class="ct-detail-label">Address</span><span class="ct-detail-val">Dar es Salaam, Tanzania</span></div>
-        <div class="ct-detail-item"><span class="ct-detail-label">Offices</span><span class="ct-detail-val">Nairobi · Lagos · Accra</span></div>
+        <div class="ct-detail-item"><span class="ct-detail-label">Office</span><span class="ct-detail-val">Dar es Salaam, Tanzania</span></div>
       </div>
     </div>
     <form class="form rv d1" onsubmit="handleWhatsApp(event)">
@@ -855,327 +762,20 @@ footer{background:var(--black);border-top:1px solid rgba(255,255,255,.06);}
       </span>
       <p class="footer-tagline">Ecological architecture and construction for Africa's future cities. Est. Dar es Salaam, 2019.</p>
       <div class="footer-social">
-        <a href="#" class="fsocial"><!-- TODO: e.g. https://instagram.com/elegantdesigns -->Instagram</a>
-        <a href="#" class="fsocial"><!-- TODO: e.g. https://linkedin.com/company/elegantdesigns -->LinkedIn</a>
-        <a href="#" class="fsocial"><!-- TODO: e.g. https://dezeen.com/... -->Dezeen</a>
+        <a href="https://www.instagram.com/elegant.designstz/" class="fsocial" target="_blank" rel="noopener">Instagram</a>
       </div>
     </div>
-    <div class="fc"><span class="fc-title">Practice</span><ul><li><a href="#projects">Projects</a></li><li><a href="#approach">Approach</a></li><li><a href="#insights">Insights</a></li><li><a href="#studio">Studio</a></li><li><a href="#"><!-- TODO: careers page URL -->Careers</a></li></ul></div>
-    <div class="fc"><span class="fc-title">Expertise</span><ul><li><a href="#"><!-- TODO -->Architecture</a></li><li><a href="#"><!-- TODO -->Construction</a></li><li><a href="#"><!-- TODO -->Masterplanning</a></li><li><a href="#"><!-- TODO -->Urban Design</a></li><li><a href="#"><!-- TODO -->Sustainability</a></li></ul></div>
-    <div class="fc"><span class="fc-title">Offices</span><ul><li><a href="#"><!-- TODO: Google Maps or contact anchor -->Dar es Salaam</a></li><li><a href="#"><!-- TODO -->Nairobi</a></li><li><a href="#"><!-- TODO -->Lagos</a></li><li><a href="#"><!-- TODO -->Accra</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Practice</span><ul><li><a href="#projects">Projects</a></li><li><a href="#approach">Approach</a></li><li><a href="#insights">Insights</a></li><li><a href="#studio">Studio</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Expertise</span><ul><li><a href="#">Architecture</a></li><li><a href="#">Construction</a></li><li><a href="#">Masterplanning</a></li><li><a href="#">Urban Design</a></li><li><a href="#">Sustainability</a></li></ul></div>
+    <div class="fc"><span class="fc-title">Office</span><ul><li><a href="https://maps.google.com/?q=Dar+es+Salaam+Tanzania" target="_blank" rel="noopener">Dar es Salaam, Tanzania</a></li></ul></div>
   </div>
   <div class="footer-bottom">
     <span class="fc-copy">© 2025 Elegant Designs. All Rights Reserved.</span>
-    <div class="fc-links"><a href="#"><!-- TODO: privacy policy page -->Privacy Policy</a><a href="#"><!-- TODO: terms of use page -->Terms of Use</a><a href="#">LEED AP · BREEAM · EDGE Certified</a></div>
+    <div class="fc-links"><a href="https://www.instagram.com/elegant.designstz/" target="_blank" rel="noopener">Instagram</a></div>
   </div>
 </footer>
 
-<!-- ══ ADMIN: Password lock screen (invisible to regular visitors) ══ -->
-<div id="admin-lock">
-  <div id="admin-lock-box">
-    <h2>Admin <em>Access</em></h2>
-    <p>Enter password to manage site images</p>
-    <input type="password" id="admin-pw-input" placeholder="••••••••" maxlength="20" autocomplete="off">
-    <button id="admin-pw-btn" onclick="checkPassword()">Unlock</button>
-    <div id="admin-pw-err"></div>
-    <button id="admin-pw-cancel" onclick="closeLock()">Cancel</button>
-  </div>
-</div>
-
-<!-- ══ ADMIN: Image manager panel (shown after auth) ══ -->
-<div id="img-mgr-panel">
-  <div id="img-mgr-inner">
-    <div id="img-mgr-header">
-      <h2>Image Manager <span class="mgr-admin-badge">Admin</span></h2>
-      <button id="img-mgr-close" onclick="closeMgr()">✕</button>
-    </div>
-    <div class="mgr-notice">
-      <strong>Admin mode.</strong> Upload your own photos below. Images are saved in your browser and will persist across sessions on this device. To update images on the live site, replace the files in the <code>images/</code> folder and push to GitHub.
-    </div>
-    <div class="mgr-progress"><div class="mgr-progress-bar" id="mgr-prog"></div></div>
-    <div id="img-mgr-slots"></div>
-    <div id="img-mgr-footer">
-      <span class="mgr-footer-note" id="mgr-storage-info">Calculating…</span>
-      <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
-        <button id="mgr-clear-btn" onclick="clearAllImages()">Clear All</button>
-        <button id="mgr-export-btn" onclick="exportHTML()">Export HTML ↓</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<canvas id="proc-canvas" style="display:none"></canvas>
-<input type="file" id="file-input" accept="image/jpeg,image/png,image/webp" style="display:none">
-
 <script>
-/* ══════════════════════════════════════
-   ADMIN AUTH
-══════════════════════════════════════ */
-const ADMIN_PW = '12345';
-let adminUnlocked = false;
-let keySeq = [];
-
-/* Secret key chord: press A then D then M to open lock screen */
-document.addEventListener('keydown', e => {
-  keySeq.push(e.key.toLowerCase());
-  keySeq = keySeq.slice(-3);
-  if (keySeq.join('') === 'adm') openLock();
-});
-
-/* Also open via URL param: ?admin */
-if (new URLSearchParams(location.search).has('admin')) openLock();
-
-function openLock() {
-  document.getElementById('admin-lock').classList.add('open');
-  setTimeout(() => document.getElementById('admin-pw-input').focus(), 100);
-}
-function closeLock() {
-  document.getElementById('admin-lock').classList.remove('open');
-  document.getElementById('admin-pw-input').value = '';
-  document.getElementById('admin-pw-err').textContent = '';
-}
-function checkPassword() {
-  const val = document.getElementById('admin-pw-input').value;
-  if (val === ADMIN_PW) {
-    adminUnlocked = true;
-    closeLock();
-    openMgr();
-  } else {
-    const inp = document.getElementById('admin-pw-input');
-    inp.classList.remove('shake');
-    void inp.offsetWidth;
-    inp.classList.add('shake');
-    document.getElementById('admin-pw-err').textContent = 'Incorrect password.';
-    inp.value = '';
-  }
-}
-document.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && document.getElementById('admin-lock').classList.contains('open')) checkPassword();
-  if (e.key === 'Escape') { closeLock(); closeMgr(); }
-});
-
-/* ══════════════════════════════════════
-   IMAGE SLOTS CONFIG
-══════════════════════════════════════ */
-const IMAGE_SLOTS = [
-  { id:'intro-bg',  label:'Intro Background',     desc:'Opening screen',             file:'images/intro-bg.jpg',  w:1920, h:1080, maxKB:350 },
-  { id:'hero-0',    label:'Hero Slide 1',          desc:'Full-bleed hero',            file:'images/hero-0.jpg',    w:1920, h:1080, maxKB:350 },
-  { id:'hero-1',    label:'Hero Slide 2',          desc:'Full-bleed hero',            file:'images/hero-1.jpg',    w:1920, h:1080, maxKB:350 },
-  { id:'hero-2',    label:'Hero Slide 3',          desc:'Full-bleed hero',            file:'images/hero-2.jpg',    w:1920, h:1080, maxKB:350 },
-  { id:'proj-1',    label:'Project 1 — Large',     desc:'Portrait, main feature',     file:'images/proj-1.jpg',    w:800,  h:1100, maxKB:250 },
-  { id:'proj-2',    label:'Project 2',             desc:'Top-right grid',             file:'images/proj-2.jpg',    w:800,  h:600,  maxKB:200 },
-  { id:'proj-3',    label:'Project 3',             desc:'Bottom-left grid',           file:'images/proj-3.jpg',    w:800,  h:440,  maxKB:180 },
-  { id:'proj-4',    label:'Project 4',             desc:'Bottom-right grid',          file:'images/proj-4.jpg',    w:800,  h:440,  maxKB:180 },
-  { id:'proj-5',    label:'Project 5',             desc:'Secondary row',              file:'images/proj-5.jpg',    w:600,  h:360,  maxKB:150 },
-  { id:'proj-6',    label:'Project 6',             desc:'Secondary row',              file:'images/proj-6.jpg',    w:600,  h:360,  maxKB:150 },
-  { id:'proj-7',    label:'Project 7',             desc:'Secondary row',              file:'images/proj-7.jpg',    w:600,  h:360,  maxKB:150 },
-  { id:'spot',      label:'Studio Photo',          desc:'Spotlight panel',            file:'images/spot.jpg',      w:720,  h:600,  maxKB:200 },
-  { id:'insight-1', label:'Insight 1',             desc:'Blog card',                  file:'images/insight-1.jpg', w:560,  h:352,  maxKB:130 },
-  { id:'insight-2', label:'Insight 2',             desc:'Blog card',                  file:'images/insight-2.jpg', w:560,  h:352,  maxKB:130 },
-  { id:'insight-3', label:'Insight 3',             desc:'Blog card',                  file:'images/insight-3.jpg', w:560,  h:352,  maxKB:130 },
-];
-
-const canvas    = document.getElementById('proc-canvas');
-const ctx       = canvas.getContext('2d');
-const fileInput = document.getElementById('file-input');
-let activeSlotId = null;
-
-const storeKey = id => 'ed_img_' + id;
-const fmtKB = b => b < 1024*100 ? (b/1024).toFixed(1)+' KB' : (b/1024/1024).toFixed(2)+' MB';
-
-/* Map slot id → all <img> elements that show that image */
-function getImgEls(id) {
-  const map = {
-    'intro-bg':  [document.querySelector('.intro-bg img')],
-    'hero-0':    [document.querySelector('#slide-0 img, .slide:nth-child(3) img')],
-    'hero-1':    [document.querySelector('#slide-1 img, .slide:nth-child(4) img')],
-    'hero-2':    [document.querySelector('#slide-2 img, .slide:nth-child(5) img')],
-    'proj-1':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(1) img')],
-    'proj-2':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(2) img')],
-    'proj-3':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(3) img')],
-    'proj-4':    [document.querySelector('.proj-grid-primary .proj-card:nth-child(4) img')],
-    'proj-5':    [document.querySelector('.proj-grid-secondary .proj-card-sm:nth-child(1) img')],
-    'proj-6':    [document.querySelector('.proj-grid-secondary .proj-card-sm:nth-child(2) img')],
-    'proj-7':    [document.querySelector('.proj-grid-secondary .proj-card-sm:nth-child(3) img')],
-    'spot':      [document.querySelector('.spot-img img')],
-    'insight-1': [document.querySelector('.insights-grid .insight-card:nth-child(1) img')],
-    'insight-2': [document.querySelector('.insights-grid .insight-card:nth-child(2) img')],
-    'insight-3': [document.querySelector('.insights-grid .insight-card:nth-child(3) img')],
-  };
-  return (map[id] || []).filter(Boolean);
-}
-
-function applyImageToSite(id, dataURL) {
-  getImgEls(id).forEach(img => { img.src = dataURL; });
-}
-
-async function compressImage(file, targetW, targetH, maxKB) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = new Image();
-      img.onload = () => {
-        const srcRatio = img.width / img.height;
-        const dstRatio = targetW / targetH;
-        let sx, sy, sw, sh;
-        if (srcRatio > dstRatio) {
-          sh = img.height; sw = Math.round(img.height * dstRatio);
-          sy = 0; sx = Math.round((img.width - sw) / 2);
-        } else {
-          sw = img.width; sh = Math.round(img.width / dstRatio);
-          sx = 0; sy = Math.round((img.height - sh) / 2);
-        }
-        canvas.width = targetW; canvas.height = targetH;
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, targetW, targetH);
-        const maxBytes = maxKB * 1024;
-        let quality = 0.88, dataURL, attempt = 0;
-        do {
-          dataURL = canvas.toDataURL('image/jpeg', quality);
-          const byteLen = Math.round((dataURL.length - 22) * 3 / 4);
-          if (byteLen <= maxBytes || quality <= 0.4) break;
-          quality -= 0.06; attempt++;
-        } while (attempt < 10);
-        resolve(dataURL);
-      };
-      img.onerror = () => reject(new Error('Could not load image'));
-      img.src = e.target.result;
-    };
-    reader.onerror = () => reject(new Error('Could not read file'));
-    reader.readAsDataURL(file);
-  });
-}
-
-async function handleFileSelected(file, slotId) {
-  const slot    = IMAGE_SLOTS.find(s => s.id === slotId);
-  if (!slot) return;
-  const mgrSlot = document.getElementById('mgr-slot-' + slotId);
-  const status  = mgrSlot?.querySelector('.mgr-status');
-  const prog    = document.getElementById('mgr-prog');
-  if (status) { status.className = 'mgr-status busy'; status.textContent = '⏳ Processing…'; }
-  if (prog) prog.style.width = '30%';
-  try {
-    const dataURL   = await compressImage(file, slot.w, slot.h, slot.maxKB);
-    const finalSize = Math.round((dataURL.length - 22) * 3 / 4);
-    if (prog) prog.style.width = '80%';
-    applyImageToSite(slotId, dataURL);
-    try { localStorage.setItem(storeKey(slotId), dataURL); } catch(e) {}
-    if (prog) setTimeout(() => { prog.style.width = '0'; }, 800);
-    if (mgrSlot) {
-      const previewImg  = mgrSlot.querySelector('.mgr-slot-preview img');
-      const placeholder = mgrSlot.querySelector('.mgr-placeholder');
-      if (previewImg) previewImg.src = dataURL;
-      if (placeholder) placeholder.style.display = 'none';
-      const sizeEl = mgrSlot.querySelector('.mgr-slot-name + .mgr-slot-desc + .mgr-slot-size, .mgr-slot-size');
-      if (status) { status.className = 'mgr-status ok'; status.textContent = `✓ Updated (${slot.w}×${slot.h}, ${fmtKB(finalSize)})`; }
-    }
-    updateStorageInfo();
-  } catch(err) {
-    if (prog) prog.style.width = '0';
-    if (status) { status.className = 'mgr-status err'; status.textContent = '✕ ' + err.message; }
-  }
-}
-
-function openMgr() {
-  if (!adminUnlocked) { openLock(); return; }
-  document.getElementById('img-mgr-panel').classList.add('open');
-  buildMgrSlots();
-  updateStorageInfo();
-}
-function closeMgr() { document.getElementById('img-mgr-panel').classList.remove('open'); }
-
-function buildMgrSlots() {
-  const container = document.getElementById('img-mgr-slots');
-  if (container.dataset.built) return;
-  container.dataset.built = '1';
-  container.innerHTML = '';
-  IMAGE_SLOTS.forEach(slot => {
-    const stored = localStorage.getItem(storeKey(slot.id));
-    const currentSrc = stored || slot.file;
-    const div = document.createElement('div');
-    div.className = 'mgr-slot';
-    div.id = 'mgr-slot-' + slot.id;
-    div.onclick = () => triggerUpload(slot.id);
-    div.innerHTML = `
-      <div class="mgr-slot-preview">
-        <img src="${currentSrc}" alt="" style="width:100%;height:100%;object-fit:cover;">
-        <div class="mgr-placeholder" style="display:none">
-          <span class="mgr-placeholder-icon">📷</span>
-          <span class="mgr-placeholder-text">Click to upload</span>
-        </div>
-        <div class="mgr-upload-overlay">
-          <span>Replace Photo</span>
-          <span style="font-size:.65rem;opacity:.8">${slot.w}×${slot.h}px</span>
-        </div>
-      </div>
-      <div class="mgr-slot-info">
-        <div class="mgr-slot-name">${slot.label}</div>
-        <div class="mgr-slot-desc">${slot.desc} · max ${slot.maxKB}KB</div>
-        <div class="mgr-slot-size">${stored ? '✓ Custom image stored' : 'Using default placeholder'}</div>
-      </div>
-      <div class="mgr-status ${stored ? 'ok' : ''}">${stored ? '✓ Custom image active' : 'Showing placeholder — click to upload your photo'}</div>
-    `;
-    container.appendChild(div);
-  });
-}
-
-function triggerUpload(slotId) {
-  if (!adminUnlocked) return;
-  activeSlotId = slotId;
-  fileInput.value = '';
-  fileInput.click();
-}
-
-fileInput.addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (file && activeSlotId) handleFileSelected(file, activeSlotId);
-});
-
-function updateStorageInfo() {
-  let total = 0;
-  const used = IMAGE_SLOTS.filter(s => { const d = localStorage.getItem(storeKey(s.id)); if(d) total += d.length*2; return !!d; }).length;
-  const el = document.getElementById('mgr-storage-info');
-  if (el) el.textContent = `${used} of ${IMAGE_SLOTS.length} images customised · ~${fmtKB(total)} stored`;
-}
-
-function clearAllImages() {
-  if (!confirm('Reset all custom images? This cannot be undone.')) return;
-  IMAGE_SLOTS.forEach(s => {
-    localStorage.removeItem(storeKey(s.id));
-    getImgEls(s.id).forEach(img => { img.src = s.file; });
-  });
-  const container = document.getElementById('img-mgr-slots');
-  delete container.dataset.built;
-  buildMgrSlots();
-  updateStorageInfo();
-}
-
-function exportHTML() {
-  const btn = document.getElementById('mgr-export-btn');
-  btn.textContent = 'Preparing…'; btn.disabled = true;
-  setTimeout(() => {
-    let html = document.documentElement.outerHTML;
-    IMAGE_SLOTS.forEach(s => {
-      const data = localStorage.getItem(storeKey(s.id));
-      if (!data) return;
-      const escaped = s.file.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      html = html.replace(new RegExp(`src="${escaped}"`, 'g'), `src="${data}"`);
-    });
-    const blob = new Blob([html], { type: 'text/html' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'index.html'; a.click();
-    URL.revokeObjectURL(a.href);
-    btn.textContent = 'Export HTML ↓'; btn.disabled = false;
-  }, 100);
-}
-
-/* Load any previously stored admin images */
-function loadStoredImages() {
-  IMAGE_SLOTS.forEach(s => {
-    const data = localStorage.getItem(storeKey(s.id));
-    if (data) applyImageToSite(s.id, data);
-  });
-}
-
 /* ══════════════════════════════════════
    MOBILE NAV
 ══════════════════════════════════════ */
@@ -1202,7 +802,7 @@ function runIntroSequence() {
   const introText  = document.getElementById('intro-text');
   const tagline    = document.getElementById('intro-tagline');
   const skipBtn    = document.getElementById('intro-skip');
-  const lines = [{ text:"Building Africa's", gold:false }, { text:'future  ', gold:true }];
+  const lines = [{ text:"Building Africa's", gold:false }, { text:'future.', gold:true }];
   let dismissed = false, autoTimer2;
   skipBtn.addEventListener('click', dismiss);
 
@@ -1281,10 +881,8 @@ dotBtns.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.slide);
 })();
 
 /* ══════════════════════════════════════
-   NAV SCROLL
+   NAV SCROLL — header is always black, nothing to toggle
 ══════════════════════════════════════ */
-const hdr = document.getElementById('header');
-window.addEventListener('scroll', () => hdr.classList.toggle('solid', scrollY > 80), { passive: true });
 
 /* ══════════════════════════════════════
    SCROLL REVEAL
@@ -1314,9 +912,8 @@ document.querySelectorAll('.cnt[data-t]').forEach(el => {
 
 /* ══════════════════════════════════════
    WHATSAPP FORM
-   ↓ Replace with your WhatsApp number (international format, no + or spaces)
 ══════════════════════════════════════ */
-const WA_NUMBER = '255787165837'; // +255 787 165 837
+const WA_NUMBER = '255787165837';
 
 function handleWhatsApp(e) {
   e.preventDefault();
@@ -1345,7 +942,6 @@ function handleWhatsApp(e) {
    INIT
 ══════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
-  loadStoredImages();
   runIntroSequence();
 });
 </script>
